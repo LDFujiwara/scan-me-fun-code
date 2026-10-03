@@ -72,23 +72,43 @@
   // Real album art, fetched live from Apple's public lookup API by artist/title.
   // Nothing is hosted or stored by this site — just an image URL looked up at load time.
   function loadArtCache() {
-    try { return JSON.parse(localStorage.getItem('artCacheV1') || '{}'); } catch (e) { return {}; }
+    try { return JSON.parse(localStorage.getItem('artCacheV2') || '{}'); } catch (e) { return {}; }
   }
   function saveArtCache(c) {
-    try { localStorage.setItem('artCacheV1', JSON.stringify(c)); } catch (e) {}
+    try { localStorage.setItem('artCacheV2', JSON.stringify(c)); } catch (e) {}
   }
   const artCache = loadArtCache();
+
+  function norm(s) {
+    return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  }
+
+  // Only accept a result if the artist actually matches — an unmatched
+  // search can return a totally unrelated top hit, which is worse than
+  // showing no art at all.
+  function isGoodMatch(wantArtist, wantTitle, resultArtist, resultTitle) {
+    const wa = norm(wantArtist), ra = norm(resultArtist);
+    const wt = norm(wantTitle), rt = norm(resultTitle);
+    const artistOk = wa && ra && (wa.includes(ra) || ra.includes(wa));
+    if (!artistOk) return false;
+    const titleOk = wt && rt && (wt.includes(rt) || rt.includes(wt) ||
+      wt.split(' ')[0] === rt.split(' ')[0]);
+    return titleOk;
+  }
 
   async function getArtUrl(artist, title) {
     const key = (artist + '|' + title).toLowerCase();
     if (artCache[key] !== undefined) return artCache[key];
     try {
       const q = encodeURIComponent(artist + ' ' + title);
-      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=album&limit=1');
+      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=album&limit=5');
       const data = await res.json();
       let url = null;
-      if (data.results && data.results[0] && data.results[0].artworkUrl100) {
-        url = data.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
+      if (data.results && data.results.length) {
+        const match = data.results.find(r => isGoodMatch(artist, title, r.artistName, r.collectionName));
+        if (match && match.artworkUrl100) {
+          url = match.artworkUrl100.replace('100x100bb', '600x600bb');
+        }
       }
       artCache[key] = url;
       saveArtCache(artCache);
