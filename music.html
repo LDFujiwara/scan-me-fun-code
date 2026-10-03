@@ -99,10 +99,10 @@
   // Real album art, fetched live from Apple's public lookup API by artist/title.
   // Nothing is hosted or stored by this site — just an image URL looked up at load time.
   function loadArtCache() {
-    try { return JSON.parse(localStorage.getItem('artCacheV2') || '{}'); } catch (e) { return {}; }
+    try { return JSON.parse(localStorage.getItem('artCacheV3') || '{}'); } catch (e) { return {}; }
   }
   function saveArtCache(c) {
-    try { localStorage.setItem('artCacheV2', JSON.stringify(c)); } catch (e) {}
+    try { localStorage.setItem('artCacheV3', JSON.stringify(c)); } catch (e) {}
   }
   const artCache = loadArtCache();
 
@@ -123,23 +123,46 @@
     return titleOk;
   }
 
+  const SPOTIFY_WORKER = 'https://spotify-art-worker.josephheintzelman99.workers.dev';
+
   async function getArtUrl(artist, title) {
     const key = (artist + '|' + title).toLowerCase();
     if (artCache[key] !== undefined) return artCache[key];
+
+    // Try Spotify first (via the Cloudflare Worker proxy), then fall back
+    // to Apple's iTunes lookup if Spotify has no good match.
+    let url = await getSpotifyArt(artist, title);
+    if (!url) url = await getItunesArt(artist, title);
+
+    artCache[key] = url;
+    saveArtCache(artCache);
+    return url;
+  }
+
+  async function getSpotifyArt(artist, title) {
+    try {
+      const q = encodeURIComponent(artist) + '&title=' + encodeURIComponent(title);
+      const res = await fetch(SPOTIFY_WORKER + '/art?artist=' + q);
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data.url || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function getItunesArt(artist, title) {
     try {
       const q = encodeURIComponent(artist + ' ' + title);
       const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=album&limit=5');
       const data = await res.json();
-      let url = null;
       if (data.results && data.results.length) {
         const match = data.results.find(r => isGoodMatch(artist, title, r.artistName, r.collectionName));
         if (match && match.artworkUrl100) {
-          url = match.artworkUrl100.replace('100x100bb', '600x600bb');
+          return match.artworkUrl100.replace('100x100bb', '600x600bb');
         }
       }
-      artCache[key] = url;
-      saveArtCache(artCache);
-      return url;
+      return null;
     } catch (e) {
       return null;
     }
