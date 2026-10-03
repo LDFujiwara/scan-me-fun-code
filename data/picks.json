@@ -1,0 +1,50 @@
+{
+  "monthKey": "2026-10",
+  "monthLabel": "October 2026",
+  "current": [
+    { "artist": "Ecca Vandal", "title": "Looking for People to Unfollow" },
+    { "artist": "The Dare", "title": "What's Wrong With New York?" },
+    { "artist": "Tool", "title": "Lateralus" },
+    { "artist": "Fugazi", "title": "13 Songs" },
+    { "artist": "Oasis", "title": "Definitely Maybe" },
+    { "artist": "Basement", "title": "Colourmeinkindness" },
+    { "artist": "Radiohead", "title": "Pablo Honey" },
+    { "artist": "The Strokes", "title": "Room on Fire" },
+    { "artist": "Ella Langley", "title": "Dandelion" },
+    { "artist": "Mitski", "title": "Bury Me at Makeout Creek" }
+  ],
+  "last": [
+    { "artist": "Deftones", "title": "Around the Fur" },
+    { "artist": "Interpol", "title": "Antics" },
+    { "artist": "The Rolling Stones", "title": "Tattoo You" },
+    { "artist": "Blur", "title": "Parklife" },
+    { "artist": "System of a Down", "title": "System of a Down" },
+    { "artist": "Olivia Rodrigo", "title": "you seem pretty sad for a girl so in love" },
+    { "artist": "Olivia Dean", "title": "The Art of Loving" },
+    { "artist": "Fleetwood Mac", "title": "Rumours" },
+    { "artist": "Talking Heads", "title": "True Stories" },
+    { "artist": "Arctic Monkeys", "title": "Favourite Worst Nightmare" }
+  ],
+  "archive": [
+    { "artist": "Ecca Vandal", "title": "Looking for People to Unfollow", "monthLabel": "October 2026" },
+    { "artist": "The Dare", "title": "What's Wrong With New York?", "monthLabel": "October 2026" },
+    { "artist": "Tool", "title": "Lateralus", "monthLabel": "October 2026" },
+    { "artist": "Fugazi", "title": "13 Songs", "monthLabel": "October 2026" },
+    { "artist": "Oasis", "title": "Definitely Maybe", "monthLabel": "October 2026" },
+    { "artist": "Basement", "title": "Colourmeinkindness", "monthLabel": "October 2026" },
+    { "artist": "Radiohead", "title": "Pablo Honey", "monthLabel": "October 2026" },
+    { "artist": "The Strokes", "title": "Room on Fire", "monthLabel": "October 2026" },
+    { "artist": "Ella Langley", "title": "Dandelion", "monthLabel": "October 2026" },
+    { "artist": "Mitski", "title": "Bury Me at Makeout Creek", "monthLabel": "October 2026" },
+    { "artist": "Deftones", "title": "Around the Fur", "monthLabel": "September 2026" },
+    { "artist": "Interpol", "title": "Antics", "monthLabel": "September 2026" },
+    { "artist": "The Rolling Stones", "title": "Tattoo You", "monthLabel": "September 2026" },
+    { "artist": "Blur", "title": "Parklife", "monthLabel": "September 2026" },
+    { "artist": "System of a Down", "title": "System of a Down", "monthLabel": "September 2026" },
+    { "artist": "Olivia Rodrigo", "title": "you seem pretty sad for a girl so in love", "monthLabel": "September 2026" },
+    { "artist": "Olivia Dean", "title": "The Art of Loving", "monthLabel": "September 2026" },
+    { "artist": "Fleetwood Mac", "title": "Rumours", "monthLabel": "September 2026" },
+    { "artist": "Talking Heads", "title": "True Stories", "monthLabel": "September 2026" },
+    { "artist": "Arctic Monkeys", "title": "Favourite Worst Nightmare", "monthLabel": "September 2026" }
+  ]
+}
