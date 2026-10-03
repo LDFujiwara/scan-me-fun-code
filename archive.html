@@ -65,32 +65,59 @@
     return a;
   }
 
-  const allPicks = [
-    { artist: 'Ecca Vandal', title: 'Looking for People to Unfollow' },
-      { artist: 'The Dare', title: 'What\'s Wrong With New York?' },
-      { artist: 'Tool', title: 'Lateralus' },
-      { artist: 'Fugazi', title: '13 Songs' },
-      { artist: 'Oasis', title: 'Definitely Maybe' },
-      { artist: 'Basement', title: 'Colourmeinkindness' },
-      { artist: 'Radiohead', title: 'Pablo Honey' },
-      { artist: 'The Strokes', title: 'Room on Fire' },
-      { artist: 'Ella Langley', title: 'Dandelion' },
-      { artist: 'Mitski', title: 'Bury Me at Makeout Creek' },
-      { artist: 'Deftones', title: 'Around the Fur' },
-      { artist: 'Interpol', title: 'Antics' },
-      { artist: 'The Rolling Stones', title: 'Tattoo You' },
-      { artist: 'Blur', title: 'Parklife' },
-      { artist: 'System of a Down', title: 'System of a Down' },
-      { artist: 'Olivia Rodrigo', title: 'you seem pretty sad for a girl so in love' },
-      { artist: 'Olivia Dean', title: 'The Art of Loving' },
-      { artist: 'Fleetwood Mac', title: 'Rumours' },
-      { artist: 'Talking Heads', title: 'True Stories' },
-      { artist: 'Arctic Monkeys', title: 'Favourite Worst Nightmare' }
-  ];
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // Real album art, fetched live from Apple's public lookup API by artist/title.
+  // Nothing is hosted or stored by this site — just an image URL looked up at load time.
+  function loadArtCache() {
+    try { return JSON.parse(localStorage.getItem('artCacheV1') || '{}'); } catch (e) { return {}; }
+  }
+  function saveArtCache(c) {
+    try { localStorage.setItem('artCacheV1', JSON.stringify(c)); } catch (e) {}
+  }
+  const artCache = loadArtCache();
+
+  async function getArtUrl(artist, title) {
+    const key = (artist + '|' + title).toLowerCase();
+    if (artCache[key] !== undefined) return artCache[key];
+    try {
+      const q = encodeURIComponent(artist + ' ' + title);
+      const res = await fetch('https://itunes.apple.com/search?term=' + q + '&entity=album&limit=1');
+      const data = await res.json();
+      let url = null;
+      if (data.results && data.results[0] && data.results[0].artworkUrl100) {
+        url = data.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
+      }
+      artCache[key] = url;
+      saveArtCache(artCache);
+      return url;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function fillArt(container, albums) {
+    Array.from(container.children).forEach((card, i) => {
+      const album = albums[i];
+      const coverEl = card.querySelector('.cover');
+      if (!album || !coverEl) return;
+      getArtUrl(album.artist, album.title).then(url => {
+        if (url) {
+          coverEl.style.backgroundImage = `url('${url}')`;
+          coverEl.style.backgroundSize = 'cover';
+          coverEl.style.backgroundPosition = 'center';
+          coverEl.style.border = 'none';
+          coverEl.textContent = '';
+        }
+      });
+    });
+  }
 
   const rotations = [-2, 1.5, -1, 2, -1.5, 1, -2.2, 1.8, -1.2, 2.2];
 
-  function render() {
+  function render(allPicks) {
     const container = document.getElementById('allGrid');
     const shuffled = shuffle(allPicks);
     container.innerHTML = shuffled.map((album, i) => {
@@ -104,13 +131,19 @@
       return `<div class="card" style="transform:rotate(${rot}deg)">
         ${tapeHtml}
         <div class="cover">COVER ART</div>
-        <div class="title">${album.title}</div>
-        <div class="artist">${album.artist}</div>
+        <div class="title">${esc(album.title)}</div>
+        <div class="artist">${esc(album.artist)}</div>
       </div>`;
     }).join('');
+    fillArt(container, shuffled);
   }
 
-  render();
+  fetch('data/picks.json?v=' + Date.now())
+    .then(r => r.json())
+    .then(data => render(data.archive || []))
+    .catch(() => {
+      document.getElementById('allGrid').innerHTML = '<div style="color:#c9c5bb;font-size:14px">Couldn\'t load picks right now.</div>';
+    });
 </script>
 </body>
 </html>

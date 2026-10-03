@@ -3,73 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<title>Andrew's Picks</title>
 <style>
-  body{margin:0;font-family:'Public Sans',system-ui,sans-serif;background:#0b0620}
-  a{color:#ffffff;text-decoration:none}
-  .wrap{min-height:100vh;position:relative;overflow:hidden;background:
-    radial-gradient(circle at 15% 10%, #ffd6f7 0%, transparent 45%),
-    radial-gradient(circle at 85% 15%, #b9f9ff 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, #d9c8ff 0%, transparent 50%),
-    linear-gradient(135deg,#6a3df5 0%,#9b3ddb 30%,#e23dbf 60%,#3dc9e2 100%);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:64px 24px;font-family:'Baloo 2',system-ui,sans-serif;box-sizing:border-box}
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;position:relative;z-index:2;max-width:460px}
-  .tile{display:flex;flex-direction:column;align-items:center;gap:16px}
-  .icon{width:150px;height:150px;border-radius:38px;display:flex;align-items:center;justify-content:center;position:relative;box-sizing:border-box}
-  .gloss{position:absolute;top:12px;left:18px;width:74px;height:30px;border-radius:18px;background:rgba(255,255,255,0.45);filter:blur(2px)}
-  .label{font-size:22px;font-weight:800;color:#ffffff;text-shadow:0 2px 6px rgba(0,0,0,0.35)}
-  .cta{position:relative;z-index:2;margin-top:48px;font-size:16px;font-weight:700;color:#ffffff;background:rgba(20,10,40,0.35);padding:12px 26px;border-radius:999px;border:2px solid rgba(255,255,255,0.6)}
-  @media (max-width:420px){
-    .icon{width:120px;height:120px}
-    .label{font-size:18px}
-    .grid{gap:28px}
+  :root{
+    --teal:#008080;
+    --grey:#c0c0c0;
+    --grey-dark:#808080;
+    --grey-darker:#404040;
+    --white:#ffffff;
+    --blue-title:#000080;
+    --blue-title2:#1084d0;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;font-family:Tahoma,Geneva,Verdana,Arial,sans-serif;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0 2px, transparent 2px 4px),
+      var(--teal);
+    min-height:100vh;overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+
+  .raised{
+    background:var(--grey);
+    border-top:2px solid var(--white);
+    border-left:2px solid var(--white);
+    border-right:2px solid var(--grey-darker);
+    border-bottom:2px solid var(--grey-darker);
+    box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark);
+  }
+  .sunken{
+    background:var(--grey);
+    border-top:2px solid var(--grey-darker);
+    border-left:2px solid var(--grey-darker);
+    border-right:2px solid var(--white);
+    border-bottom:2px solid var(--white);
+  }
+
+  /* ---------- desktop icons ---------- */
+  .desktop{
+    padding:28px 18px 92px;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .icons{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,86px);
+    gap:22px 14px;
+    justify-content:start;
+  }
+  .icon-tile{
+    width:86px;display:flex;flex-direction:column;align-items:center;gap:6px;
+    padding:6px 4px;border:1px dotted transparent;cursor:pointer;
+  }
+  .icon-tile:active{border-color:rgba(255,255,255,0.6);background:rgba(0,0,128,0.25)}
+  .icon-glyph{
+    width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .icon-box{
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .icon-label{
+    color:#ffffff;font-size:12px;text-align:center;line-height:1.25;
+    text-shadow:1px 1px 1px #000000;
+    padding:1px 4px;
+  }
+  .icon-tile:active .icon-label{background:var(--blue-title);text-shadow:none}
+
+  /* ---------- welcome window ---------- */
+  .window-wrap{
+    flex:1;display:flex;align-items:flex-end;justify-content:center;
+    padding-bottom:12px;
+  }
+  .window{
+    width:100%;max-width:400px;
+  }
+  .title-bar{
+    background:linear-gradient(90deg,var(--blue-title),var(--blue-title2));
+    color:#fff;display:flex;align-items:center;justify-content:space-between;
+    padding:4px 4px 4px 8px;font-size:13px;font-weight:bold;letter-spacing:0.3px;
+  }
+  .title-buttons{display:flex;gap:3px}
+  .title-buttons span{
+    width:18px;height:16px;display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:bold;color:#000;line-height:0;
+  }
+  .window-body{
+    padding:18px 16px 16px;
+    font-size:13px;color:#141414;
+  }
+  .window-body p{margin:0 0 14px;line-height:1.5}
+  .win-button{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 16px;font-size:13px;color:#000;cursor:pointer;
+  }
+  .win-button:active{
+    border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
+    border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
+    padding:9px 15px 7px 17px;
+  }
+
+  /* ---------- taskbar ---------- */
+  .taskbar{
+    position:fixed;left:0;right:0;bottom:0;height:40px;
+    display:flex;align-items:center;gap:8px;padding:3px 6px;
+    z-index:10;
+  }
+  .start-button{
+    display:flex;align-items:center;gap:6px;padding:5px 12px 5px 6px;
+    font-weight:bold;font-size:13px;cursor:pointer;
+  }
+  .start-button:active{
+    border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
+    border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
+  }
+  .start-flag{
+    width:18px;height:18px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1px;
+  }
+  .start-flag span{display:block}
+  .start-flag span:nth-child(1){background:#ff4136}
+  .start-flag span:nth-child(2){background:#2ecc40}
+  .start-flag span:nth-child(3){background:#0074d9}
+  .start-flag span:nth-child(4){background:#ffdc00}
+  .taskbar-divider{width:2px;align-self:stretch;margin:2px 2px;border-left:1px solid var(--grey-darker);border-right:1px solid var(--white)}
+  .task-item{
+    display:flex;align-items:center;gap:6px;padding:5px 12px;font-size:13px;
+    max-width:180px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  }
+  .task-item.active{
+    border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
+    border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
+  }
+  .taskbar-spacer{flex:1}
+  .tray{
+    display:flex;align-items:center;gap:8px;padding:4px 10px;font-size:12px;height:100%;
+  }
+
+  @media (min-width:640px){
+    .desktop{padding:36px 28px 92px}
+    .window-wrap{justify-content:flex-end;padding-right:24px}
+    .window{max-width:300px}
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div style="position:absolute;top:56px;left:64px;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #ffffff, #ffe1fb 40%, transparent 70%);opacity:0.8"></div>
-  <div style="position:absolute;bottom:72px;right:96px;width:40px;height:40px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #ffffff, #d6fbff 40%, transparent 70%);opacity:0.7"></div>
-  <div style="position:absolute;top:120px;right:140px;font-size:40px;color:#ffffff;opacity:0.55;transform:rotate(12deg)">✦</div>
-  <div style="position:absolute;bottom:140px;left:120px;font-size:32px;color:#ffffff;opacity:0.5;transform:rotate(-18deg)">✦</div>
+<div class="desktop">
 
-  <div class="grid">
-    <a class="tile" href="https://ldfujiwara.github.io/event-board/">
-      <div class="icon" style="background:linear-gradient(160deg,#5dd0ff 0%,#1f8fe0 100%);box-shadow:0 16px 0 rgba(20,70,120,0.35), inset 0 4px 0 rgba(255,255,255,0.55)">
-        <div class="gloss"></div>
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg>
+  <div class="icons">
+    <a class="icon-tile" href="https://ldfujiwara.github.io/event-board/">
+      <div class="icon-glyph">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <rect x="4" y="7" width="32" height="29" fill="#ffffff" stroke="#000000" stroke-width="1.5"/>
+          <rect x="4" y="7" width="32" height="8" fill="#ff4136" stroke="#000000" stroke-width="1.5"/>
+          <rect x="10" y="3" width="3" height="8" fill="#808080" stroke="#000" stroke-width="1"/>
+          <rect x="27" y="3" width="3" height="8" fill="#808080" stroke="#000" stroke-width="1"/>
+          <rect x="9" y="19" width="5" height="5" fill="#0074d9"/>
+          <rect x="17" y="19" width="5" height="5" fill="#0074d9"/>
+          <rect x="25" y="19" width="5" height="5" fill="#2ecc40"/>
+          <rect x="9" y="27" width="5" height="5" fill="#2ecc40"/>
+          <rect x="17" y="27" width="5" height="5" fill="#ffdc00"/>
+        </svg>
       </div>
-      <div class="label">Events</div>
+      <div class="icon-label">Events</div>
     </a>
 
-    <a class="tile" href="https://ldfujiwara.github.io/learning-board/">
-      <div class="icon" style="background:linear-gradient(160deg,#9dff7a 0%,#3fb840 100%);box-shadow:0 16px 0 rgba(20,90,20,0.35), inset 0 4px 0 rgba(255,255,255,0.55)">
-        <div class="gloss"></div>
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"></path><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"></path></svg>
+    <a class="icon-tile" href="https://ldfujiwara.github.io/learning-board/">
+      <div class="icon-glyph">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <polygon points="20,6 37,14 20,22 3,14" fill="#2ecc40" stroke="#000" stroke-width="1.5"/>
+          <polygon points="20,22 37,14 37,15 20,23" fill="#1a8c2a"/>
+          <rect x="10" y="17" width="3" height="11" fill="#404040"/>
+          <rect x="9" y="27" width="5" height="3" fill="#ffdc00" stroke="#000" stroke-width="1"/>
+          <path d="M30 16 v9 c0 2 -4.5 4 -10 4 s-10 -2 -10 -4 v-9" fill="none" stroke="#000" stroke-width="1.5"/>
+        </svg>
       </div>
-      <div class="label">Classroom</div>
+      <div class="icon-label">Classroom</div>
     </a>
 
-    <a class="tile" href="music.html">
-      <div class="icon" style="background:linear-gradient(160deg,#ff8ed6 0%,#e0349b 100%);box-shadow:0 16px 0 rgba(120,10,80,0.35), inset 0 4px 0 rgba(255,255,255,0.55)">
-        <div class="gloss"></div>
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+    <a class="icon-tile" href="music.html">
+      <div class="icon-glyph">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <rect x="4" y="4" width="32" height="32" fill="#1a1a1a" stroke="#000" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="12" fill="#2b2b2b" stroke="#555" stroke-width="1"/>
+          <circle cx="20" cy="20" r="3" fill="#ff4136"/>
+          <rect x="3" y="3" width="6" height="6" fill="#ffffff" stroke="#000" stroke-width="1"/>
+        </svg>
       </div>
-      <div class="label">Music</div>
+      <div class="icon-label">Music</div>
     </a>
 
-    <a class="tile" href="reading.html">
-      <div class="icon" style="background:linear-gradient(160deg,#c9a8ff 0%,#8a3ddb 100%);box-shadow:0 16px 0 rgba(70,20,110,0.35), inset 0 4px 0 rgba(255,255,255,0.55)">
-        <div class="gloss"></div>
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path></svg>
+    <a class="icon-tile" href="reading.html">
+      <div class="icon-glyph">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <rect x="6" y="7" width="13" height="27" fill="#0074d9" stroke="#000" stroke-width="1.5"/>
+          <rect x="19" y="5" width="15" height="29" fill="#ffdc00" stroke="#000" stroke-width="1.5"/>
+          <line x1="19" y1="9" x2="19" y2="32" stroke="#000" stroke-width="1"/>
+          <line x1="23" y1="11" x2="31" y2="11" stroke="#8a6d00" stroke-width="1.3"/>
+          <line x1="23" y1="15" x2="31" y2="15" stroke="#8a6d00" stroke-width="1.3"/>
+          <line x1="23" y1="19" x2="31" y2="19" stroke="#8a6d00" stroke-width="1.3"/>
+        </svg>
       </div>
-      <div class="label">Reading List</div>
+      <div class="icon-label">Reading List</div>
     </a>
   </div>
 
-  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform">Got a rec for me? →</a>
+  <div class="window-wrap">
+    <div class="window raised">
+      <div class="title-bar">
+        <span>RECOMMEND.TXT</span>
+        <div class="title-buttons">
+          <span class="raised">_</span>
+          <span class="raised">□</span>
+          <span class="raised">×</span>
+        </div>
+      </div>
+      <div class="window-body">
+        <p>Heard something I need to hear? Found a show I should go to? Click below.</p>
+        <a class="win-button raised" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform">Got a rec for me →</a>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<div class="taskbar raised">
+  <button class="start-button raised" onclick="window.scrollTo(0,0)">
+    <span class="start-flag"><span></span><span></span><span></span><span></span></span>
+    Start
+  </button>
+  <div class="taskbar-divider"></div>
+  <button class="task-item raised active">Andrew's Picks</button>
+  <div class="taskbar-spacer"></div>
+  <div class="tray sunken"><span id="clock">--:--</span></div>
+</div>
+
+<script>
+  function updateClock(){
+    const d = new Date();
+    let h = d.getHours();
+    const m = String(d.getMinutes()).padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12; if (h === 0) h = 12;
+    document.getElementById('clock').textContent = h + ':' + m + ' ' + ampm;
+  }
+  updateClock();
+  setInterval(updateClock, 1000 * 15);
+</script>
 </body>
 </html>
