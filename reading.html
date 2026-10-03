@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading List</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-deep:#2f4a3c;
+    --green-mid:#5c7a63;
+    --green-soft:#a9c2a6;
+    --beige:#f3ecdc;
+    --beige-dark:#e4d9bd;
+    --ink:#24301f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Public Sans',system-ui,sans-serif;color:var(--ink);
+    background:
+      linear-gradient(180deg, var(--beige) 0%, var(--beige) 55%, var(--green-soft) 100%),
+      repeating-linear-gradient(135deg, rgba(92,122,99,0.06) 0 2px, transparent 2px 40px);
+  }
+  a{color:inherit;text-decoration:none}
+  header{padding:48px 24px 28px;text-align:center}
+  .back{display:inline-block;margin-bottom:18px;font-size:14px;font-weight:600;color:var(--green-mid);border-bottom:1px solid var(--green-mid);padding-bottom:2px}
+  h1{font-family:'Fraunces',serif;font-size:clamp(32px,6vw,48px);margin:0;color:var(--green-deep);letter-spacing:0.5px}
+  .sub{margin-top:10px;font-size:15px;color:var(--green-mid);font-weight:500}
+  main{max-width:640px;margin:0 auto;padding:0 20px 40px}
+  .list{display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;align-items:center;gap:18px;background:rgba(255,255,255,0.55);
+    border:1px solid rgba(47,74,60,0.12);border-radius:14px;padding:14px 18px;
+    transition:transform .15s ease, box-shadow .15s ease;}
+  .row:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(47,74,60,0.12);background:rgba(255,255,255,0.8)}
+  .cover{flex:none;width:52px;height:74px;border-radius:5px;background:linear-gradient(160deg,var(--green-soft),var(--green-mid));
+    display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:0.5px;color:#f3ecdc;
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08)}
+  .info{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .title{font-family:'Fraunces',serif;font-weight:700;font-size:17px;color:var(--green-deep);line-height:1.25}
+  .author{font-size:13px;color:var(--green-mid);font-weight:500}
+  footer{text-align:center;padding:12px 24px 60px}
+  .cta{display:inline-block;margin-top:8px;font-size:15px;font-weight:600;color:#f3ecdc;background:var(--green-deep);
+    padding:12px 26px;border-radius:999px}
+  footer p{font-size:13px;color:var(--green-mid);margin:0 0 4px}
+</style>
+</head>
+<body>
+<header>
+  <a class="back" href="index.html">← Back home</a>
+  <h1>Reading List</h1>
+  <div class="sub">Books I've read, loved, or keep pushing on people.</div>
+</header>
+<main>
+  <div class="list">
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Spring Snow</div>
+          <div class="author">Yukio Mishima</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">ADP 6-22</div>
+          <div class="author">Army Doctrine Publication</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Ikigai</div>
+          <div class="author">Héctor García &amp; Francesc Miralles</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">China's Environmental Challenges</div>
+          <div class="author">Judith Shapiro</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Last Train to Memphis</div>
+          <div class="author">Peter Guralnick</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">I Am a Cat</div>
+          <div class="author">Natsume Sōseki</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Republic</div>
+          <div class="author">Plato</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Talking to Strangers</div>
+          <div class="author">Malcolm Gladwell</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">On Killing</div>
+          <div class="author">Lt. Col. Dave Grossman</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">1984</div>
+          <div class="author">George Orwell</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Milk and Honey</div>
+          <div class="author">Rupi Kaur</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">War and Peace</div>
+          <div class="author">Leo Tolstoy</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Style Thesaurus</div>
+          <div class="author">Hannah Kane</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Man's Search for Meaning</div>
+          <div class="author">Viktor Frankl</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Modern Man in Search of a Soul</div>
+          <div class="author">C. G. Jung</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Everything I Know About Love</div>
+          <div class="author">Dolly Alderton</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Can't Hurt Me</div>
+          <div class="author">David Goggins</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Meditations</div>
+          <div class="author">Marcus Aurelius</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Thus Spoke Zarathustra</div>
+          <div class="author">Friedrich Nietzsche</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Kite Runner</div>
+          <div class="author">Khaled Hosseini</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Pillow Thoughts</div>
+          <div class="author">Courtney Peppernell</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Communist Manifesto</div>
+          <div class="author">Karl Marx</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Walden and Civil Disobedience</div>
+          <div class="author">Henry David Thoreau</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Crying in H Mart</div>
+          <div class="author">Michelle Zauner</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Myth of Sisyphus</div>
+          <div class="author">Albert Camus</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Lolita</div>
+          <div class="author">Vladimir Nabokov</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Man and His Symbols</div>
+          <div class="author">C. G. Jung</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Uncommon Reader</div>
+          <div class="author">Alan Bennett</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Awakenings</div>
+          <div class="author">Oliver Sacks</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Madness and Civilization</div>
+          <div class="author">Michel Foucault</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Gulag Archipelago</div>
+          <div class="author">Aleksandr Solzhenitsyn</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">The Art of Intelligence</div>
+          <div class="author">Henry A. Crumpton</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Hunting Cyber Criminals</div>
+          <div class="author">Vinny Troia</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Hacks, Leaks, and Revelations</div>
+          <div class="author">Micah Lee</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Film for Her</div>
+          <div class="author">Orion Carloto</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">Sherlock Holmes</div>
+          <div class="author">Arthur Conan Doyle</div>
+        </div>
+      </div>  </div>
+</main>
+<footer>
+  <p>Have a book I should read?</p>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform">Send a rec →</a>
+</footer>
+</body>
+</html>

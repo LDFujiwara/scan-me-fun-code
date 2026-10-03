@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Time Picks</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0b0b}
+  a{color:#edeae2}
+  a:hover{color:#ffffff}
+  .page{
+    min-height:100vh;box-sizing:border-box;position:relative;overflow:hidden;
+    background-image:url('ChatGPT Image Sep 23, 2026, 09_54_42 PM.png');background-size:cover;background-position:center top;background-repeat:no-repeat;
+    padding:56px 24px;display:flex;flex-direction:column;gap:36px;font-family:'Special Elite',monospace;
+  }
+  .scrim{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;
+    background:linear-gradient(180deg, rgba(6,5,5,0.6) 0%, rgba(6,5,5,0.45) 30%, rgba(6,5,5,0.6) 70%, rgba(6,5,5,0.75) 100%)}
+  .content{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:36px}
+  .back{text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+  .back span:first-child{font-size:18px;color:#c9c5bb}
+  .back span:last-child{font-size:14px;color:#c9c5bb;letter-spacing:1px}
+  h1{font-family:'Anton',sans-serif;font-size:clamp(32px,7vw,52px);color:#edeae2;letter-spacing:1px;margin:0;position:relative;display:inline-block}
+  .sub{font-size:14px;color:#a8a398;margin-top:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:24px}
+  .card{background:#f1efe9;clip-path:polygon(1% 0%,99% 2%,100% 98%,2% 100%);padding:14px 14px 18px;position:relative;box-shadow:0 10px 18px rgba(0,0,0,0.45)}
+  .cover{width:100%;aspect-ratio:1/1;background:#cfcac0;border:2px dashed #9a9488;display:flex;align-items:center;justify-content:center;color:#47443b;font-size:11px;margin-bottom:10px}
+  .card .title{font-family:'Anton',sans-serif;font-size:15px;color:#141311;line-height:1.15}
+  .card .artist{font-size:12px;color:#5c574c;margin-top:3px}
+  .tape{position:absolute;top:-9px;width:56px;height:18px;background:rgba(232,52,42,0.55)}
+  .footer{border-top:2px dashed #4a4640;padding-top:18px;font-size:13px;color:#6b675e;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="scrim"></div>
+  <div class="content">
+
+    <a class="back" href="music.html">
+      <span>←</span>
+      <span>BACK TO MUSIC</span>
+    </a>
+
+    <div>
+      <h1>ALL TIME PICKS
+        <svg width="100%" height="18" viewBox="0 0 440 18" style="position:absolute;left:0;bottom:-14px;max-width:440px" preserveAspectRatio="none" fill="none"><path d="M2 10 Q 40 2 80 10 T 160 10 T 240 10 T 320 10 T 400 10" stroke="#e8342a" stroke-width="5" stroke-linecap="round"></path></svg>
+      </h1>
+      <div class="sub">Every album I've recommended, all in one place. Order shuffles on every visit.</div>
+    </div>
+
+    <div class="grid" id="allGrid"></div>
+
+    <div class="footer">New picks get added here every month.</div>
+
+  </div>
+</div>
+
+<script>
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const allPicks = [
+    { artist: 'Ecca Vandal', title: 'Looking for People to Unfollow' },
+      { artist: 'The Dare', title: 'What\'s Wrong With New York?' },
+      { artist: 'Tool', title: 'Lateralus' },
+      { artist: 'Fugazi', title: '13 Songs' },
+      { artist: 'Oasis', title: 'Definitely Maybe' },
+      { artist: 'Basement', title: 'Colourmeinkindness' },
+      { artist: 'Radiohead', title: 'Pablo Honey' },
+      { artist: 'The Strokes', title: 'Room on Fire' },
+      { artist: 'Ella Langley', title: 'Dandelion' },
+      { artist: 'Mitski', title: 'Bury Me at Makeout Creek' },
+      { artist: 'Deftones', title: 'Around the Fur' },
+      { artist: 'Interpol', title: 'Antics' },
+      { artist: 'The Rolling Stones', title: 'Tattoo You' },
+      { artist: 'Blur', title: 'Parklife' },
+      { artist: 'System of a Down', title: 'System of a Down' },
+      { artist: 'Olivia Rodrigo', title: 'you seem pretty sad for a girl so in love' },
+      { artist: 'Olivia Dean', title: 'The Art of Loving' },
+      { artist: 'Fleetwood Mac', title: 'Rumours' },
+      { artist: 'Talking Heads', title: 'True Stories' },
+      { artist: 'Arctic Monkeys', title: 'Favourite Worst Nightmare' }
+  ];
+
+  const rotations = [-2, 1.5, -1, 2, -1.5, 1, -2.2, 1.8, -1.2, 2.2];
+
+  function render() {
+    const container = document.getElementById('allGrid');
+    const shuffled = shuffle(allPicks);
+    container.innerHTML = shuffled.map((album, i) => {
+      const rot = rotations[i % rotations.length];
+      const showTape = i % 2 === 0;
+      const tapeSide = (Math.floor(i / 2) % 2 === 0) ? 'left' : 'right';
+      const tapeRot = tapeSide === 'left' ? -4 : 5;
+      const tapeHtml = showTape
+        ? `<div class="tape" style="${tapeSide}:20px;transform:rotate(${tapeRot}deg)"></div>`
+        : '';
+      return `<div class="card" style="transform:rotate(${rot}deg)">
+        ${tapeHtml}
+        <div class="cover">COVER ART</div>
+        <div class="title">${album.title}</div>
+        <div class="artist">${album.artist}</div>
+      </div>`;
+    }).join('');
+  }
+
+  render();
+</script>
+</body>
+</html>

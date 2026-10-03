@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0b0b0b}
+  a{color:#edeae2}
+  a:hover{color:#ffffff}
+  .page{
+    min-height:100vh;box-sizing:border-box;position:relative;overflow:hidden;
+    background-image:url('ChatGPT Image Sep 23, 2026, 09_54_42 PM.png');background-size:cover;background-position:center top;background-repeat:no-repeat;
+    padding:56px 24px;display:flex;flex-direction:column;gap:44px;font-family:'Special Elite',monospace;
+  }
+  .scrim{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;
+    background:linear-gradient(180deg, rgba(6,5,5,0.55) 0%, rgba(6,5,5,0.4) 30%, rgba(6,5,5,0.55) 70%, rgba(6,5,5,0.72) 100%)}
+  .content{position:relative;z-index:1;max-width:1100px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:44px}
+  .ticket{text-decoration:none;display:flex;flex-direction:column;background:#e8342a;border-radius:8px;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,0.5)}
+  .ticket-head{padding:20px 24px 12px}
+  .ticket-head .t{font-family:'Anton',sans-serif;font-size:clamp(28px,6vw,44px);letter-spacing:2px;color:#0b0b0b}
+  .ticket-head .s{font-size:14px;color:#1c0503;margin-top:4px}
+  iframe.player{width:100%;display:block;border:none}
+  h2{font-family:'Anton',sans-serif;font-size:clamp(28px,5vw,48px);color:#edeae2;letter-spacing:1px;margin:0;position:relative;display:inline-block}
+  .note{font-size:13px;color:#8a857a;margin-top:20px;font-style:italic}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:24px;padding-top:12px}
+  .card{background:#f1efe9;clip-path:polygon(1% 0%,99% 2%,100% 98%,2% 100%);padding:14px 14px 18px;position:relative;box-shadow:0 10px 18px rgba(0,0,0,0.45)}
+  .cover{width:100%;aspect-ratio:1/1;background:#cfcac0;border:2px dashed #9a9488;display:flex;align-items:center;justify-content:center;color:#47443b;font-size:11px;margin-bottom:10px}
+  .card .title{font-family:'Anton',sans-serif;font-size:15px;color:#141311;line-height:1.15}
+  .card .artist{font-size:12px;color:#5c574c;margin-top:3px}
+  .tape{position:absolute;top:-9px;width:56px;height:18px;background:rgba(232,52,42,0.55)}
+  .chips{display:flex;flex-wrap:wrap;gap:12px}
+  .chip{background:#f1efe9;clip-path:polygon(2% 0%,98% 3%,100% 96%,3% 100%);padding:10px 12px;box-shadow:0 5px 10px rgba(0,0,0,0.4);min-width:150px;flex:1 1 150px}
+  .chip .title{font-family:'Anton',sans-serif;font-size:13px;color:#141311;line-height:1.2}
+  .chip .artist{font-size:10px;color:#5c574c;margin-top:2px}
+  .bottom-row{margin-top:8px;border-top:2px dashed #4a4640;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:20px}
+  .rec-link{text-decoration:none;display:flex;flex-direction:column;gap:4px}
+  .rec-link .t{font-family:'Anton',sans-serif;font-size:clamp(20px,4vw,28px);color:#e8342a;letter-spacing:1px}
+  .rec-link .s{font-size:13px;color:#8a857a}
+  .all-time{text-decoration:none;display:flex;align-items:center;gap:8px}
+  .all-time span{font-family:'Anton',sans-serif;font-size:clamp(20px,4vw,28px);color:#e8342a;letter-spacing:1px}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="scrim"></div>
+  <div class="content">
+
+    <a class="ticket" href="https://open.spotify.com/playlist/7lszMbga2XDCmvuS7XLlUU" target="_blank" rel="noopener">
+      <div class="ticket-head">
+        <div class="t">WEEKLY PICKS</div>
+        <div class="s">This week's rotation.</div>
+      </div>
+    </a>
+    <iframe class="player" style="border-radius:0 0 12px 12px;margin-top:-44px" src="https://open.spotify.com/embed/playlist/7lszMbga2XDCmvuS7XLlUU?utm_source=generator" height="152" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+    <div>
+      <h2>ALBUM PICKS OF THE MONTH
+        <svg width="100%" height="18" viewBox="0 0 520 18" style="position:absolute;left:0;bottom:-14px;max-width:520px" preserveAspectRatio="none" fill="none"><path d="M2 10 Q 40 2 80 10 T 160 10 T 240 10 T 320 10 T 400 10 T 480 10" stroke="#e8342a" stroke-width="5" stroke-linecap="round"></path></svg>
+      </h2>
+      <div class="note">Order shuffles every time this page loads — these aren't ranked.</div>
+      <div class="grid" id="currentGrid"></div>
+    </div>
+
+    <div>
+      <h2 style="font-size:30px;color:#c9c5bb;margin-bottom:16px">LAST MONTH'S PICKS</h2>
+      <div class="chips" id="lastMonthGrid"></div>
+    </div>
+
+    <div class="bottom-row">
+      <a class="rec-link" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform">
+        <div class="t">GOT A TRACK RECOMMENDATION</div>
+        <div class="s">Drop a rec in the suggestion box</div>
+      </a>
+      <a class="all-time" href="archive.html">
+        <span>ALL TIME PICKS</span>
+        <span>→</span>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const currentMonth = [
+      { artist: 'Ecca Vandal', title: 'Looking for People to Unfollow' },
+      { artist: 'The Dare', title: 'What\'s Wrong With New York?' },
+      { artist: 'Tool', title: 'Lateralus' },
+      { artist: 'Fugazi', title: '13 Songs' },
+      { artist: 'Oasis', title: 'Definitely Maybe' },
+      { artist: 'Basement', title: 'Colourmeinkindness' },
+      { artist: 'Radiohead', title: 'Pablo Honey' },
+      { artist: 'The Strokes', title: 'Room on Fire' },
+      { artist: 'Ella Langley', title: 'Dandelion' },
+      { artist: 'Mitski', title: 'Bury Me at Makeout Creek' }
+  ];
+  const lastMonth = [
+      { artist: 'Deftones', title: 'Around the Fur' },
+      { artist: 'Interpol', title: 'Antics' },
+      { artist: 'The Rolling Stones', title: 'Tattoo You' },
+      { artist: 'Blur', title: 'Parklife' },
+      { artist: 'System of a Down', title: 'System of a Down' },
+      { artist: 'Olivia Rodrigo', title: 'you seem pretty sad for a girl so in love' },
+      { artist: 'Olivia Dean', title: 'The Art of Loving' },
+      { artist: 'Fleetwood Mac', title: 'Rumours' },
+      { artist: 'Talking Heads', title: 'True Stories' },
+      { artist: 'Arctic Monkeys', title: 'Favourite Worst Nightmare' }
+  ];
+
+  const rotations = [-2, 1.5, -1, 2, -1.5, 1, -2.2, 1.8, -1.2, 2.2];
+
+  function renderCurrent() {
+    const container = document.getElementById('currentGrid');
+    const shuffled = shuffle(currentMonth);
+    container.innerHTML = shuffled.map((album, i) => {
+      const rot = rotations[i % rotations.length];
+      const showTape = i % 2 === 0;
+      const tapeSide = (Math.floor(i / 2) % 2 === 0) ? 'left' : 'right';
+      const tapeRot = tapeSide === 'left' ? -4 : 5;
+      const tapeHtml = showTape
+        ? `<div class="tape" style="${tapeSide}:20px;transform:rotate(${tapeRot}deg)"></div>`
+        : '';
+      return `<div class="card" style="transform:rotate(${rot}deg)">
+        ${tapeHtml}
+        <div class="cover">COVER ART</div>
+        <div class="title">${album.title}</div>
+        <div class="artist">${album.artist}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderLastMonth() {
+    const container = document.getElementById('lastMonthGrid');
+    const shuffled = shuffle(lastMonth);
+    container.innerHTML = shuffled.map(pick => `<div class="chip">
+      <div class="title">${pick.title}</div>
+      <div class="artist">${pick.artist}</div>
+    </div>`).join('');
+  }
+
+  renderCurrent();
+  renderLastMonth();
+</script>
+</body>
+</html>
