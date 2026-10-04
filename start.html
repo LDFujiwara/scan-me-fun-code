@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Under Construction</title>
+<style>
+  :root{
+    --teal:#008080;
+    --grey:#c0c0c0;
+    --grey-dark:#808080;
+    --grey-darker:#404040;
+    --white:#ffffff;
+    --blue-title:#000080;
+    --blue-title2:#1084d0;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;font-family:Tahoma,Geneva,Verdana,Arial,sans-serif;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0 2px, transparent 2px 4px),
+      var(--teal);
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+  }
+  a{color:inherit}
+
+  .raised{
+    background:var(--grey);
+    border-top:2px solid var(--white);
+    border-left:2px solid var(--white);
+    border-right:2px solid var(--grey-darker);
+    border-bottom:2px solid var(--grey-darker);
+    box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark);
+  }
+
+  .window{width:100%;max-width:400px}
+  .title-bar{
+    background:linear-gradient(90deg,var(--blue-title),var(--blue-title2));
+    color:#fff;display:flex;align-items:center;justify-content:space-between;
+    padding:4px 4px 4px 8px;font-size:13px;font-weight:bold;letter-spacing:0.3px;
+  }
+  .title-buttons{display:flex;gap:3px}
+  .title-buttons span{
+    width:18px;height:16px;display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:bold;color:#000;line-height:0;
+  }
+  .window-body{
+    padding:28px 16px;
+    font-size:13px;color:#141414;
+    text-align:center;
+  }
+  .cone{font-size:40px;margin-bottom:10px}
+  .window-body h1{font-size:16px;margin:0 0 10px;color:var(--blue-title)}
+  .window-body p{margin:0 0 18px;line-height:1.5}
+  .win-button{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 16px;font-size:13px;color:#000;cursor:pointer;
+  }
+  .win-button:active{
+    border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
+    border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
+    padding:9px 15px 7px 17px;
+  }
+</style>
+</head>
+<body>
+  <div class="window raised">
+    <div class="title-bar">
+      <span>UNDER_CONSTRUCTION.EXE</span>
+      <div class="title-buttons">
+        <span class="raised">_</span>
+        <span class="raised">□</span>
+        <span class="raised">×</span>
+      </div>
+    </div>
+    <div class="window-body">
+      <div class="cone">🚧</div>
+      <h1>Page under construction</h1>
+      <p>This part of the site isn't built yet. Check back soon.</p>
+      <a class="win-button raised" href="index.html">← Back home</a>
+    </div>
+  </div>
+</body>
+</html>

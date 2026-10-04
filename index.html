@@ -50,25 +50,26 @@
   }
   .icons{
     display:grid;
-    grid-template-columns:repeat(auto-fill,86px);
-    gap:22px 14px;
+    grid-template-columns:repeat(auto-fill,116px);
+    gap:30px 18px;
     justify-content:start;
   }
   .icon-tile{
-    width:86px;display:flex;flex-direction:column;align-items:center;gap:6px;
-    padding:6px 4px;border:1px dotted transparent;cursor:pointer;
+    width:116px;display:flex;flex-direction:column;align-items:center;gap:8px;
+    padding:8px 4px;border:1px dotted transparent;cursor:pointer;
   }
   .icon-tile:active{border-color:rgba(255,255,255,0.6);background:rgba(0,0,128,0.25)}
   .icon-glyph{
-    width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+    width:68px;height:68px;display:flex;align-items:center;justify-content:center;
     position:relative;
   }
+  .icon-glyph svg{width:100%;height:100%}
   .icon-box{
-    width:44px;height:44px;
+    width:60px;height:60px;
     display:flex;align-items:center;justify-content:center;
   }
   .icon-label{
-    color:#ffffff;font-size:12px;text-align:center;line-height:1.25;
+    color:#ffffff;font-size:14px;text-align:center;line-height:1.3;
     text-shadow:1px 1px 1px #000000;
     padding:1px 4px;
   }
@@ -231,10 +232,10 @@
 </div>
 
 <div class="taskbar raised">
-  <button class="start-button raised" onclick="window.scrollTo(0,0)">
+  <a class="start-button raised" href="start.html">
     <span class="start-flag"><span></span><span></span><span></span><span></span></span>
     Start
-  </button>
+  </a>
   <div class="taskbar-divider"></div>
   <button class="task-item raised active">Andrew's Picks</button>
   <div class="taskbar-spacer"></div>
