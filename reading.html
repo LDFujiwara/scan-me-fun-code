@@ -83,11 +83,14 @@
     if (bookCache[key] !== undefined) return bookCache[key];
     try {
       const q = 'title=' + encodeURIComponent(title) + '&author=' + encodeURIComponent(author);
-      let res = await fetch('https://openlibrary.org/search.json?' + q + '&limit=1');
-      // A full page's worth of lookups firing at once can trip a transient 503; retry once.
-      if (!res.ok) {
-        await wait(800);
-        res = await fetch('https://openlibrary.org/search.json?' + q + '&limit=1');
+      const url = 'https://openlibrary.org/search.json?' + q + '&limit=1';
+      // A full page's worth of lookups can trip a transient 503 under load;
+      // retry a few times with backoff before giving up.
+      let res = await fetch(url);
+      const backoffs = [1000, 2500, 5000];
+      for (let i = 0; !res.ok && i < backoffs.length; i++) {
+        await wait(backoffs[i]);
+        res = await fetch(url);
       }
       if (!res.ok) return null; // don't cache a transient failure, so a later load can retry
       const data = await res.json();
@@ -124,8 +127,8 @@
     `).join('');
 
     books.forEach((b, i) => {
-      // Stagger the starts slightly so 36 lookups don't all land in the same instant.
-      wait(i * 40).then(() => getBookInfo(b.title, b.author)).then(info => {
+      // Stagger the starts so 36 lookups don't all land in the same instant.
+      wait(i * 150).then(() => getBookInfo(b.title, b.author)).then(info => {
         if (!info) return;
         const rowEl = document.getElementById('row-' + i);
         if (!rowEl) return;
