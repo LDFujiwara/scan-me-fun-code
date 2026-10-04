@@ -64,39 +64,30 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
 
-  // Live book cover + link lookup via Google Books' public, keyless API.
+  // Live book cover + link lookup via the Open Library search API — public,
+  // keyless, and generous with rate limits (unlike Google Books' anonymous quota).
   function loadBookCache() {
-    try { return JSON.parse(localStorage.getItem('bookCacheV2') || '{}'); } catch (e) { return {}; }
+    try { return JSON.parse(localStorage.getItem('bookCacheV3') || '{}'); } catch (e) { return {}; }
   }
   function saveBookCache(c) {
-    try { localStorage.setItem('bookCacheV2', JSON.stringify(c)); } catch (e) {}
+    try { localStorage.setItem('bookCacheV3', JSON.stringify(c)); } catch (e) {}
   }
   const bookCache = loadBookCache();
-
-  function wait(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
 
   async function getBookInfo(title, author) {
     const key = (title + '|' + author).toLowerCase();
     if (bookCache[key] !== undefined) return bookCache[key];
     try {
-      const q = encodeURIComponent('intitle:' + title + ' inauthor:' + author);
-      let res = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + q + '&maxResults=1');
-      // Google Books' keyless quota rate-limits bursts of requests; back off and retry once.
-      if (res.status === 429) {
-        await wait(1200);
-        res = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + q + '&maxResults=1');
-      }
+      const q = 'title=' + encodeURIComponent(title) + '&author=' + encodeURIComponent(author);
+      const res = await fetch('https://openlibrary.org/search.json?' + q + '&limit=1');
       if (!res.ok) return null; // don't cache a transient failure, so a later load can retry
       const data = await res.json();
       let info = null;
-      if (data.items && data.items.length) {
-        const v = data.items[0].volumeInfo;
-        const cover = v.imageLinks ? (v.imageLinks.thumbnail || v.imageLinks.smallThumbnail) : null;
+      const doc = data.docs && data.docs[0];
+      if (doc) {
         info = {
-          cover: cover ? cover.replace('http://', 'https://') : null,
-          link: v.infoLink || v.previewLink || null
+          cover: doc.cover_i ? ('https://covers.openlibrary.org/b/id/' + doc.cover_i + '-L.jpg') : null,
+          link: doc.key ? ('https://openlibrary.org' + doc.key) : null
         };
       }
       bookCache[key] = info;
@@ -108,7 +99,7 @@
   }
 
   function fallbackLink(title, author) {
-    return 'https://www.google.com/search?tbm=bks&q=' + encodeURIComponent(title + ' ' + author);
+    return 'https://openlibrary.org/search?q=' + encodeURIComponent(title + ' ' + author);
   }
 
   function render(books) {
@@ -123,27 +114,20 @@
       </a>
     `).join('');
 
-    // Fetch covers/links one at a time with a short stagger between requests —
-    // firing all 36 lookups at once trips Google Books' anonymous rate limit.
-    (async () => {
-      for (let i = 0; i < books.length; i++) {
-        const b = books[i];
-        const info = await getBookInfo(b.title, b.author);
-        if (info) {
-          const rowEl = document.getElementById('row-' + i);
-          if (rowEl) {
-            if (info.link) rowEl.href = info.link;
-            if (info.cover) {
-              const coverEl = rowEl.querySelector('.cover');
-              coverEl.style.backgroundImage = `url('${info.cover}')`;
-              coverEl.style.border = 'none';
-              coverEl.textContent = '';
-            }
-          }
+    books.forEach((b, i) => {
+      getBookInfo(b.title, b.author).then(info => {
+        if (!info) return;
+        const rowEl = document.getElementById('row-' + i);
+        if (!rowEl) return;
+        if (info.link) rowEl.href = info.link;
+        if (info.cover) {
+          const coverEl = rowEl.querySelector('.cover');
+          coverEl.style.backgroundImage = `url('${info.cover}')`;
+          coverEl.style.border = 'none';
+          coverEl.textContent = '';
         }
-        await wait(120);
-      }
-    })();
+      });
+    });
   }
 
   fetch('data/books.json?v=' + Date.now())
