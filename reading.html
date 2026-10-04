@@ -33,7 +33,8 @@
   .row:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(47,74,60,0.12);background:rgba(255,255,255,0.8)}
   .cover{flex:none;width:52px;height:74px;border-radius:5px;background:linear-gradient(160deg,var(--green-soft),var(--green-mid));
     display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;letter-spacing:0.5px;color:#f3ecdc;
-    box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08)}
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);background-size:cover;background-position:center}
+  a.row{cursor:pointer}
   .info{display:flex;flex-direction:column;gap:3px;min-width:0}
   .title{font-family:'Fraunces',serif;font-weight:700;font-size:17px;color:var(--green-deep);line-height:1.25}
   .author{font-size:13px;color:var(--green-mid);font-weight:500}
@@ -50,263 +51,90 @@
   <div class="sub">Books I've read, loved, or keep pushing on people.</div>
 </header>
 <main>
-  <div class="list">
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Spring Snow</div>
-          <div class="author">Yukio Mishima</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">ADP 6-22</div>
-          <div class="author">Army Doctrine Publication</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Ikigai</div>
-          <div class="author">Héctor García &amp; Francesc Miralles</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">China's Environmental Challenges</div>
-          <div class="author">Judith Shapiro</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Last Train to Memphis</div>
-          <div class="author">Peter Guralnick</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">I Am a Cat</div>
-          <div class="author">Natsume Sōseki</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Republic</div>
-          <div class="author">Plato</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Talking to Strangers</div>
-          <div class="author">Malcolm Gladwell</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">On Killing</div>
-          <div class="author">Lt. Col. Dave Grossman</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">1984</div>
-          <div class="author">George Orwell</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Milk and Honey</div>
-          <div class="author">Rupi Kaur</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">War and Peace</div>
-          <div class="author">Leo Tolstoy</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Style Thesaurus</div>
-          <div class="author">Hannah Kane</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Man's Search for Meaning</div>
-          <div class="author">Viktor Frankl</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Modern Man in Search of a Soul</div>
-          <div class="author">C. G. Jung</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Everything I Know About Love</div>
-          <div class="author">Dolly Alderton</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Can't Hurt Me</div>
-          <div class="author">David Goggins</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Meditations</div>
-          <div class="author">Marcus Aurelius</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Thus Spoke Zarathustra</div>
-          <div class="author">Friedrich Nietzsche</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Kite Runner</div>
-          <div class="author">Khaled Hosseini</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Pillow Thoughts</div>
-          <div class="author">Courtney Peppernell</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Communist Manifesto</div>
-          <div class="author">Karl Marx</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Walden and Civil Disobedience</div>
-          <div class="author">Henry David Thoreau</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Crying in H Mart</div>
-          <div class="author">Michelle Zauner</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Myth of Sisyphus</div>
-          <div class="author">Albert Camus</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Lolita</div>
-          <div class="author">Vladimir Nabokov</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Man and His Symbols</div>
-          <div class="author">C. G. Jung</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Uncommon Reader</div>
-          <div class="author">Alan Bennett</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Awakenings</div>
-          <div class="author">Oliver Sacks</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Madness and Civilization</div>
-          <div class="author">Michel Foucault</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Gulag Archipelago</div>
-          <div class="author">Aleksandr Solzhenitsyn</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">The Art of Intelligence</div>
-          <div class="author">Henry A. Crumpton</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Hunting Cyber Criminals</div>
-          <div class="author">Vinny Troia</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Hacks, Leaks, and Revelations</div>
-          <div class="author">Micah Lee</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Film for Her</div>
-          <div class="author">Orion Carloto</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="cover">COVER</div>
-        <div class="info">
-          <div class="title">Sherlock Holmes</div>
-          <div class="author">Arthur Conan Doyle</div>
-        </div>
-      </div>  </div>
+  <div class="list" id="bookList">
+    <div style="color:var(--green-mid);font-size:14px;text-align:center;padding:20px 0">Loading books…</div>
+  </div>
 </main>
 <footer>
   <p>Have a book I should read?</p>
   <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform">Send a rec →</a>
 </footer>
+<script>
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // Live book cover + link lookup via Google Books' public, keyless API.
+  function loadBookCache() {
+    try { return JSON.parse(localStorage.getItem('bookCacheV1') || '{}'); } catch (e) { return {}; }
+  }
+  function saveBookCache(c) {
+    try { localStorage.setItem('bookCacheV1', JSON.stringify(c)); } catch (e) {}
+  }
+  const bookCache = loadBookCache();
+
+  async function getBookInfo(title, author) {
+    const key = (title + '|' + author).toLowerCase();
+    if (bookCache[key] !== undefined) return bookCache[key];
+    try {
+      const q = encodeURIComponent('intitle:' + title + ' inauthor:' + author);
+      const res = await fetch('https://www.googleapis.com/books/v1/volumes?q=' + q + '&maxResults=1');
+      const data = await res.json();
+      let info = null;
+      if (data.items && data.items.length) {
+        const v = data.items[0].volumeInfo;
+        const cover = v.imageLinks ? (v.imageLinks.thumbnail || v.imageLinks.smallThumbnail) : null;
+        info = {
+          cover: cover ? cover.replace('http://', 'https://') : null,
+          link: v.infoLink || v.previewLink || null
+        };
+      }
+      bookCache[key] = info;
+      saveBookCache(bookCache);
+      return info;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function fallbackLink(title, author) {
+    return 'https://www.google.com/search?tbm=bks&q=' + encodeURIComponent(title + ' ' + author);
+  }
+
+  function render(books) {
+    const container = document.getElementById('bookList');
+    container.innerHTML = books.map((b, i) => `
+      <a class="row" id="row-${i}" href="${esc(fallbackLink(b.title, b.author))}" target="_blank" rel="noopener">
+        <div class="cover">COVER</div>
+        <div class="info">
+          <div class="title">${esc(b.title)}</div>
+          <div class="author">${esc(b.author)}</div>
+        </div>
+      </a>
+    `).join('');
+
+    books.forEach((b, i) => {
+      getBookInfo(b.title, b.author).then(info => {
+        if (!info) return;
+        const rowEl = document.getElementById('row-' + i);
+        if (!rowEl) return;
+        if (info.link) rowEl.href = info.link;
+        if (info.cover) {
+          const coverEl = rowEl.querySelector('.cover');
+          coverEl.style.backgroundImage = `url('${info.cover}')`;
+          coverEl.style.border = 'none';
+          coverEl.textContent = '';
+        }
+      });
+    });
+  }
+
+  fetch('data/books.json?v=' + Date.now())
+    .then(r => r.json())
+    .then(books => render(books))
+    .catch(() => {
+      document.getElementById('bookList').innerHTML = '<div style="color:var(--green-mid);font-size:14px;text-align:center">Couldn\'t load the reading list right now.</div>';
+    });
+</script>
 </body>
 </html>
