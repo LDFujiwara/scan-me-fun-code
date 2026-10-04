@@ -73,11 +73,15 @@
   }
 
   /* ---- car photo ---- */
-  .photo-frame{padding:4px;margin:0 0 16px}
+  .photo-frame{padding:4px;margin:0 auto;max-width:260px}
   .photo-frame img{display:block;width:100%;height:auto;border:1px solid #000}
+  .photo-caption{
+    font-size:10px;color:var(--grey-darker);text-align:center;
+    margin:6px 0 16px;font-style:italic;
+  }
 
   /* ---- stage map ---- */
-  .stage-block{padding:10px;margin:0 0 18px;text-align:left}
+  .stage-block{padding:10px;margin:0 auto 16px;max-width:280px;text-align:left}
   .stage-header{
     display:flex;align-items:center;justify-content:space-between;
     margin-bottom:8px;padding:0 2px;
@@ -109,10 +113,6 @@
       <div class="cone">🚧</div>
       <h1>Page under construction</h1>
       <p>In the meantime, enjoy my 1:13.6 touge sprint and this picture of my car.</p>
-
-      <div class="photo-frame raised">
-        <img src="assets/228i-night.jpg" alt="Andrew's BMW 228i at night">
-      </div>
 
       <div class="stage-block sunken">
         <div class="stage-header">
@@ -149,6 +149,11 @@
         </div>
         <div class="map-caption">Bataan, PH — touge stage</div>
       </div>
+
+      <div class="photo-frame raised">
+        <img src="assets/228i-night.jpg" alt="Andrew's BMW 228i at night">
+      </div>
+      <div class="photo-caption">(not the car touge was raced with)</div>
 
       <a class="win-button raised" href="index.html">← Back home</a>
     </div>
