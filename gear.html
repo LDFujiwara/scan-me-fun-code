@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gear</title>
+<style>
+  :root{
+    --grey:#c0c0c0; --grey-dark:#808080; --grey-darker:#404040; --white:#fff;
+    --blue:#000080; --blue2:#1084d0;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;font-family:Tahoma,Geneva,Verdana,Arial,sans-serif;color:#141414;
+    background:#008080 repeating-linear-gradient(45deg, rgba(0,0,0,0.035) 0 2px, transparent 2px 4px);
+    min-height:100vh;padding:20px 16px 40px;
+  }
+  .raised{
+    background:var(--grey);
+    border-top:2px solid var(--white);border-left:2px solid var(--white);
+    border-right:2px solid var(--grey-darker);border-bottom:2px solid var(--grey-darker);
+    box-shadow:inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark);
+  }
+  .sunken{
+    background:#fff;
+    border-top:2px solid var(--grey-darker);border-left:2px solid var(--grey-darker);
+    border-right:2px solid var(--white);border-bottom:2px solid var(--white);
+  }
+  .wrap{max-width:980px;margin:0 auto}
+  .back{display:inline-block;color:#fff;font-size:13px;text-decoration:none;
+    text-shadow:1px 1px 1px #000;border-bottom:1px solid rgba(255,255,255,0.5);margin-bottom:14px}
+  .head{padding:16px 18px;margin-bottom:14px}
+  .head h1{margin:0 0 4px;font-size:20px;color:var(--blue)}
+  .head p{margin:0;font-size:13px;line-height:1.5}
+  .disclosure{font-size:11px;color:var(--grey-darker);margin-top:8px}
+
+  .tabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:-2px;position:relative;z-index:1;padding-left:6px}
+  .tab{
+    font:inherit;font-size:13px;padding:6px 14px;cursor:pointer;color:#000;
+    background:var(--grey);border:2px solid;border-color:var(--white) var(--grey-darker) transparent var(--white);
+    box-shadow:inset 1px 1px 0 #dfdfdf;
+  }
+  .tab[aria-selected="true"]{font-weight:bold;padding-bottom:8px;margin-top:-3px}
+  .panel{padding:16px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+  .card{padding:10px;display:flex;flex-direction:column;gap:8px}
+  .shot{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
+  .shot img{width:100%;height:100%;object-fit:contain;display:block}
+  .tag{font-size:11px;color:var(--grey-darker);text-transform:uppercase;letter-spacing:0.6px}
+  .name{font-size:15px;font-weight:bold;color:var(--blue);line-height:1.25}
+  .why{font-size:12.5px;line-height:1.5;flex:1}
+  .go{
+    display:inline-flex;justify-content:center;padding:7px 12px;font-size:13px;color:#000;text-decoration:none;
+  }
+  .go:active{
+    border-top-color:var(--grey-darker);border-left-color:var(--grey-darker);
+    border-right-color:var(--white);border-bottom-color:var(--white);
+  }
+  .empty{padding:24px;text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Back home</a>
+
+  <div class="head raised">
+    <h1>Gear I stand by</h1>
+    <p>Stuff I actually use and would buy again. If it's on this list, it earned its spot.</p>
+    <div class="disclosure" id="disclosure"></div>
+  </div>
+
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="panel sunken"><div class="grid" id="grid"></div></div>
+</div>
+
+<script>
+  /* ------------------------------------------------------------------
+     EDIT THIS LIST. One entry per product.
+       category : groups items into tabs
+       name     : product name
+       why      : one or two lines on why you stand by it
+       link     : where "Check it out" goes (affiliate link if you use one)
+       image    : optional, e.g. "assets/gear/knife.jpg" (emoji shows if blank)
+       emoji    : shown when there's no image
+     ------------------------------------------------------------------ */
+  const AFFILIATE_NOTE = "";  // e.g. "Some links are affiliate links. I may earn a small commission at no cost to you."
+
+  const GEAR = [
+    { category:"Kitchen", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🔪" },
+    { category:"Kitchen", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🍳" },
+    { category:"Tech",    name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"⌨️" },
+    { category:"Tech",    name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🎧" },
+    { category:"Fitness", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🏋️" },
+    { category:"Fitness", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"👟" }
+  ];
+
+  const cats = ["All"].concat([...new Set(GEAR.map(g => g.category))]);
+  const tabsEl = document.getElementById('tabs');
+  const grid = document.getElementById('grid');
+  let current = "All";
+
+  function el(tag, cls, text){ const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+
+  function render(){
+    tabsEl.innerHTML = "";
+    cats.forEach(c => {
+      const b = el('button', 'tab', c);
+      b.type = 'button'; b.setAttribute('role','tab'); b.setAttribute('aria-selected', c === current);
+      b.addEventListener('click', () => { current = c; render(); });
+      tabsEl.appendChild(b);
+    });
+    grid.innerHTML = "";
+    const items = GEAR.filter(g => current === "All" || g.category === current);
+    if (!items.length) { grid.appendChild(el('div','empty','Nothing here yet.')); return; }
+    items.forEach(g => {
+      const card = el('div','card raised');
+      const shot = el('div','shot sunken');
+      if (g.image) { const im = new Image(); im.src = g.image; im.alt = g.name; shot.appendChild(im); }
+      else shot.textContent = g.emoji || "📦";
+      card.appendChild(shot);
+      card.appendChild(el('div','tag', g.category));
+      card.appendChild(el('div','name', g.name));
+      card.appendChild(el('div','why', g.why));
+      const a = el('a','go raised','Check it out →');
+      a.href = g.link || "#";
+      if (g.link && g.link !== "#") { a.target = "_blank"; a.rel = "noopener sponsored"; }
+      else a.addEventListener('click', e => e.preventDefault());
+      card.appendChild(a);
+      grid.appendChild(card);
+    });
+  }
+  document.getElementById('disclosure').textContent = AFFILIATE_NOTE;
+  render();
+
+  // inside a desktop window, "home" closes the window instead
+  if (window.top !== window.self) {
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href="index.html"]');
+      if (a) { e.preventDefault(); parent.postMessage({type:'close-window'}, '*'); }
+    });
+  }
+</script>
+</body>
+</html>
