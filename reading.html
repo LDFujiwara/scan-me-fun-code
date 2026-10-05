@@ -57,7 +57,7 @@
 </main>
 <footer>
   <p>Have a book I should read?</p>
-  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform">Send a rec →</a>
+  <a class="cta" href="https://docs.google.com/forms/d/e/1FAIpQLSficDBSfifCCjj4PQH3WmAyMWsO1mvac5TI4YXvu7jjiO_3gA/viewform" target="_blank" rel="noopener">Send a rec →</a>
 </footer>
 <script>
   function esc(s) {
@@ -149,6 +149,15 @@
     .catch(() => {
       document.getElementById('bookList').innerHTML = '<div style="color:var(--green-mid);font-size:14px;text-align:center">Couldn\'t load the reading list right now.</div>';
     });
+</script>
+<script>
+  // when shown inside a desktop window, "home" links close the window instead
+  if (window.top !== window.self) {
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href="index.html"]');
+      if (a) { e.preventDefault(); parent.postMessage({type:'close-window'}, '*'); }
+    });
+  }
 </script>
 </body>
 </html>

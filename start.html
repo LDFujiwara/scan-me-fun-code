@@ -133,5 +133,14 @@
       <a class="win-button raised" href="index.html">← Back home</a>
     </div>
   </div>
+<script>
+  // when shown inside a desktop window, "home" links close the window instead
+  if (window.top !== window.self) {
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href="index.html"]');
+      if (a) { e.preventDefault(); parent.postMessage({type:'close-window'}, '*'); }
+    });
+  }
+</script>
 </body>
 </html>

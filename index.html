@@ -83,6 +83,7 @@
   .window{
     width:100%;max-width:400px;
   }
+  #recWindow{position:relative}
   .title-bar{
     background:linear-gradient(90deg,var(--blue-title),var(--blue-title2));
     color:#fff;display:flex;align-items:center;justify-content:space-between;
@@ -98,11 +99,20 @@
     border-top-color:var(--grey-darker);border-left-color:var(--grey-darker);
     border-right-color:var(--white);border-bottom-color:var(--white);
   }
-  .window.maximized{
-    position:fixed;left:0;top:0;right:0;bottom:40px;max-width:none;width:auto;z-index:5;
-    display:flex;flex-direction:column;
+  .appwin{
+    position:fixed;display:flex;flex-direction:column;max-width:none;
   }
-  .window.maximized .window-body{flex:1}
+  .appwin.maximized{left:0!important;top:0!important;width:auto!important;height:auto!important;right:0;bottom:40px}
+  .appwin .title-bar{cursor:default;user-select:none;-webkit-user-select:none;touch-action:none}
+  .appwin .title-bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-right:8px}
+  .win-content{position:relative;flex:1;margin:3px;background:#fff;
+    border-top:2px solid var(--grey-darker);border-left:2px solid var(--grey-darker);
+    border-right:2px solid var(--white);border-bottom:2px solid var(--white);min-height:0}
+  .win-content iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+  .win-shield{position:absolute;inset:0;z-index:2}
+  .appwin.focused .win-shield{display:none}
+  body.dragging iframe{pointer-events:none}
+  body.dragging{cursor:move}
   [hidden]{display:none!important}
   .window-body{
     padding:18px 16px 16px;
@@ -123,7 +133,7 @@
   .taskbar{
     position:fixed;left:0;right:0;bottom:0;height:40px;
     display:flex;align-items:center;gap:8px;padding:3px 6px;
-    z-index:10;
+    z-index:1000;
   }
   .start-button{
     display:flex;align-items:center;gap:8px;padding:4px 16px 4px 8px;
@@ -150,7 +160,7 @@
   .taskbar-divider{width:2px;align-self:stretch;margin:2px 2px;border-left:1px solid var(--grey-darker);border-right:1px solid var(--white)}
   .task-item{
     display:flex;align-items:center;gap:6px;padding:5px 12px;font-size:13px;
-    max-width:180px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+    flex:0 1 170px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;
   }
   .task-item.active{
     border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
@@ -260,7 +270,6 @@
         <span>RECOMMEND.TXT</span>
         <div class="title-buttons">
           <button type="button" class="raised" id="btnMin" aria-label="Minimize" title="Minimize">_</button>
-          <button type="button" class="raised" id="btnMax" aria-label="Maximize" title="Maximize">□</button>
           <button type="button" class="raised" id="btnClose" aria-label="Close" title="Close">×</button>
         </div>
       </div>
@@ -305,14 +314,119 @@
   });
   task.addEventListener('click', function(){
     win.hidden = !win.hidden; setActive(!win.hidden);
-  });
-  document.getElementById('btnMax').addEventListener('click', function(){
-    win.classList.toggle('maximized');
+    if (!win.hidden && typeof zTop !== 'undefined') { zTop++; win.style.zIndex = zTop;
+      Object.values(wins).forEach(o => { o.el.classList.remove('focused'); o.task.classList.remove('active'); }); }
   });
   document.getElementById('btnClose').addEventListener('click', function(){
-    win.hidden = true; win.classList.remove('maximized');
+    win.hidden = true;
     task.hidden = true; icon.hidden = false;
   });
+  // ---------- app windows ----------
+  let zTop = 20, openCount = 0;
+  const wins = {};            // url -> {el, task, min}
+  const bar = document.querySelector('.taskbar');
+  const spacer = document.querySelector('.taskbar-spacer');
+  const isNarrow = () => window.innerWidth < 700;
+
+  function focusWin(w){
+    zTop++; w.el.style.zIndex = zTop;
+    Object.values(wins).forEach(o => { o.el.classList.toggle('focused', o === w); o.task.classList.toggle('active', o === w && !o.min); });
+    task.classList.remove('active');
+  }
+  function minimizeWin(w){
+    w.min = true; w.el.hidden = true; w.task.classList.remove('active');
+  }
+  function restoreWin(w){
+    w.min = false; w.el.hidden = false; focusWin(w);
+  }
+  function closeWin(w){
+    w.el.remove(); w.task.remove(); delete wins[w.url];
+  }
+  function openApp(url, label){
+    if (wins[url]) { restoreWin(wins[url]); return; }
+    const w = {url:url, min:false};
+    const el = document.createElement('div');
+    el.className = 'window raised appwin';
+    const vw = window.innerWidth, vh = window.innerHeight - 40;
+    const width = Math.min(900, vw - 24), height = Math.min(640, vh - 24);
+    const off = (openCount++ % 6) * 28;
+    el.style.width = width + 'px'; el.style.height = height + 'px';
+    el.style.left = Math.max(0, Math.round((vw - width)/2) - 60 + off) + 'px';
+    el.style.top = Math.max(0, 14 + off) + 'px';
+    if (isNarrow()) el.classList.add('maximized');
+    const name = label.toUpperCase().replace(/\s+/g,'_') + '.EXE';
+    el.innerHTML =
+      '<div class="title-bar"><span></span><div class="title-buttons">' +
+      '<button type="button" class="raised" data-a="min" aria-label="Minimize" title="Minimize">_</button>' +
+      '<button type="button" class="raised" data-a="max" aria-label="Maximize" title="Maximize">□</button>' +
+      '<button type="button" class="raised" data-a="close" aria-label="Close" title="Close">×</button>' +
+      '</div></div><div class="win-content"><iframe title=""></iframe><div class="win-shield"></div></div>';
+    el.querySelector('.title-bar span').textContent = name;
+    const frame = el.querySelector('iframe');
+    frame.title = label; frame.src = url;
+    document.body.appendChild(el);
+
+    const t = document.createElement('button');
+    t.type = 'button'; t.className = 'task-item raised'; t.textContent = name;
+    bar.insertBefore(t, spacer);
+    w.el = el; w.task = t; w.frame = frame; wins[url] = w;
+
+    t.addEventListener('click', function(){
+      if (w.min) restoreWin(w);
+      else if (el.classList.contains('focused')) minimizeWin(w);
+      else focusWin(w);
+    });
+    el.addEventListener('mousedown', () => { if (!el.classList.contains('focused')) focusWin(w); });
+    el.querySelector('.win-shield').addEventListener('click', () => focusWin(w));
+    el.querySelector('[data-a=min]').addEventListener('click', () => minimizeWin(w));
+    el.querySelector('[data-a=max]').addEventListener('click', () => el.classList.toggle('maximized'));
+    el.querySelector('[data-a=close]').addEventListener('click', () => closeWin(w));
+
+    // drag by title bar
+    const tb = el.querySelector('.title-bar');
+    tb.addEventListener('pointerdown', function(e){
+      if (e.target.closest('button') || el.classList.contains('maximized')) return;
+      const r = el.getBoundingClientRect();
+      const dx = e.clientX - r.left, dy = e.clientY - r.top;
+      document.body.classList.add('dragging');
+      tb.setPointerCapture(e.pointerId);
+      function move(ev){
+        const x = Math.min(Math.max(ev.clientX - dx, -width + 80), window.innerWidth - 80);
+        const y = Math.min(Math.max(ev.clientY - dy, 0), window.innerHeight - 40 - 30);
+        el.style.left = x + 'px'; el.style.top = y + 'px';
+      }
+      function up(){
+        document.body.classList.remove('dragging');
+        tb.removeEventListener('pointermove', move); tb.removeEventListener('pointerup', up);
+      }
+      tb.addEventListener('pointermove', move); tb.addEventListener('pointerup', up);
+    });
+    focusWin(w);
+  }
+
+  // icons and the Andrew button open as windows
+  document.querySelectorAll('a.icon-tile[href]:not(#recIcon), a.start-button').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+      e.preventDefault();
+      const lab = a.querySelector('.icon-label');
+      openApp(a.getAttribute('href'), lab ? lab.textContent.trim() : 'Andrew');
+    });
+  });
+
+  // pages inside windows ask the desktop to close them
+  window.addEventListener('message', function(e){
+    if (!e.data || e.data.type !== 'close-window') return;
+    Object.values(wins).forEach(function(w){ if (w.frame.contentWindow === e.source) closeWin(w); });
+  });
+
+  // clicking the recommendation window brings it forward
+  win.addEventListener('mousedown', function(){
+    zTop++; win.style.zIndex = zTop;
+    Object.values(wins).forEach(o => { o.el.classList.remove('focused'); o.task.classList.remove('active'); });
+    if (!win.hidden) setActive(true);
+  });
+
   icon.addEventListener('click', function(e){
     e.preventDefault();
     win.hidden = false; task.hidden = false; icon.hidden = true; setActive(true);
