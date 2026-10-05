@@ -115,21 +115,27 @@
     z-index:10;
   }
   .start-button{
-    display:flex;align-items:center;gap:6px;padding:5px 12px 5px 6px;
-    font-weight:bold;font-size:13px;cursor:pointer;
+    display:flex;align-items:center;gap:8px;padding:4px 16px 4px 8px;
+    font-weight:bold;font-size:15px;cursor:pointer;letter-spacing:0.3px;
+    animation:startPulse 2.4s ease-in-out infinite;
+  }
+  .start-button:hover{
+    background:#dcdcdc;color:var(--blue-title);
+    animation:none;
+    box-shadow:inset 1px 1px 0 #ffffff, inset -1px -1px 0 var(--grey-dark), 0 0 0 2px rgba(16,132,208,0.55);
   }
   .start-button:active{
     border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
     border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
   }
-  .start-flag{
-    width:18px;height:18px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1px;
+  .start-icon{width:22px;height:22px;display:block;flex:none}
+  @keyframes startPulse{
+    0%,100%{box-shadow:inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark), 0 0 0 0 rgba(255,255,255,0)}
+    50%{box-shadow:inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark), 0 0 0 4px rgba(255,255,255,0.55)}
   }
-  .start-flag span{display:block}
-  .start-flag span:nth-child(1){background:#ff4136}
-  .start-flag span:nth-child(2){background:#2ecc40}
-  .start-flag span:nth-child(3){background:#0074d9}
-  .start-flag span:nth-child(4){background:#ffdc00}
+  @media (prefers-reduced-motion:reduce){
+    .start-button{animation:none}
+  }
   .taskbar-divider{width:2px;align-self:stretch;margin:2px 2px;border-left:1px solid var(--grey-darker);border-right:1px solid var(--white)}
   .task-item{
     display:flex;align-items:center;gap:6px;padding:5px 12px;font-size:13px;
@@ -244,9 +250,15 @@
 </div>
 
 <div class="taskbar raised">
-  <a class="start-button raised" href="start.html">
-    <span class="start-flag"><span></span><span></span><span></span><span></span></span>
-    Start
+  <a class="start-button raised" href="start.html" title="Open Andrew's profile">
+    <svg class="start-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M6 1C3 1 1.2 3 1.2 5.5c0 1.6.8 2.6 1.8 3.2V10.5h6V8.7c1-.6 1.8-1.6 1.8-3.2C10.8 3 9 1 6 1z" fill="#fff" stroke="#000" stroke-width=".9" stroke-linejoin="round"/>
+      <circle cx="4.2" cy="5.4" r="1.2" fill="#000"/>
+      <circle cx="7.8" cy="5.4" r="1.2" fill="#000"/>
+      <path d="M6 6.7l-.7 1.3h1.4z" fill="#000"/>
+      <path d="M4.5 9.1v1.4M6 9.1v1.4M7.5 9.1v1.4" stroke="#000" stroke-width=".6"/>
+    </svg>
+    Andrew
   </a>
   <div class="taskbar-divider"></div>
   <button class="task-item raised active">Andrew's Picks</button>
