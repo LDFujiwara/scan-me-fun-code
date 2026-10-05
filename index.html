@@ -89,10 +89,21 @@
     padding:4px 4px 4px 8px;font-size:13px;font-weight:bold;letter-spacing:0.3px;
   }
   .title-buttons{display:flex;gap:3px}
-  .title-buttons span{
+  .title-buttons button{
     width:18px;height:16px;display:flex;align-items:center;justify-content:center;
     font-size:11px;font-weight:bold;color:#000;line-height:0;
+    padding:0;margin:0;font-family:inherit;cursor:pointer;
   }
+  .title-buttons button:active{
+    border-top-color:var(--grey-darker);border-left-color:var(--grey-darker);
+    border-right-color:var(--white);border-bottom-color:var(--white);
+  }
+  .window.maximized{
+    position:fixed;left:0;top:0;right:0;bottom:40px;max-width:none;width:auto;z-index:5;
+    display:flex;flex-direction:column;
+  }
+  .window.maximized .window-body{flex:1}
+  [hidden]{display:none!important}
   .window-body{
     padding:18px 16px 16px;
     font-size:13px;color:#141414;
@@ -228,16 +239,29 @@
       </div>
       <div class="icon-label">Portfolio</div>
     </a>
+
+    <a class="icon-tile" id="recIcon" href="#" hidden>
+      <div class="icon-glyph">
+        <svg width="40" height="40" viewBox="0 0 40 40">
+          <rect x="8" y="4" width="24" height="32" fill="#ffffff" stroke="#000" stroke-width="1.5"/>
+          <line x1="12" y1="11" x2="28" y2="11" stroke="#808080" stroke-width="1.5"/>
+          <line x1="12" y1="16" x2="28" y2="16" stroke="#808080" stroke-width="1.5"/>
+          <line x1="12" y1="21" x2="28" y2="21" stroke="#808080" stroke-width="1.5"/>
+          <line x1="12" y1="26" x2="22" y2="26" stroke="#808080" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="icon-label">Recommend</div>
+    </a>
   </div>
 
   <div class="window-wrap">
-    <div class="window raised">
+    <div class="window raised" id="recWindow">
       <div class="title-bar">
         <span>RECOMMEND.TXT</span>
         <div class="title-buttons">
-          <span class="raised">_</span>
-          <span class="raised">□</span>
-          <span class="raised">×</span>
+          <button type="button" class="raised" id="btnMin" aria-label="Minimize" title="Minimize">_</button>
+          <button type="button" class="raised" id="btnMax" aria-label="Maximize" title="Maximize">□</button>
+          <button type="button" class="raised" id="btnClose" aria-label="Close" title="Close">×</button>
         </div>
       </div>
       <div class="window-body">
@@ -255,7 +279,7 @@
     Andrew
   </a>
   <div class="taskbar-divider"></div>
-  <button class="task-item raised active">Andrew's Picks</button>
+  <button class="task-item raised active" id="taskRec" type="button">RECOMMEND.TXT</button>
   <div class="taskbar-spacer"></div>
   <div class="tray sunken"><span id="clock">--:--</span></div>
 </div>
@@ -271,6 +295,28 @@
   }
   updateClock();
   setInterval(updateClock, 1000 * 15);
+
+  const win = document.getElementById('recWindow');
+  const task = document.getElementById('taskRec');
+  const icon = document.getElementById('recIcon');
+  function setActive(on){ task.classList.toggle('active', on); }
+  document.getElementById('btnMin').addEventListener('click', function(){
+    win.hidden = true; setActive(false);
+  });
+  task.addEventListener('click', function(){
+    win.hidden = !win.hidden; setActive(!win.hidden);
+  });
+  document.getElementById('btnMax').addEventListener('click', function(){
+    win.classList.toggle('maximized');
+  });
+  document.getElementById('btnClose').addEventListener('click', function(){
+    win.hidden = true; win.classList.remove('maximized');
+    task.hidden = true; icon.hidden = false;
+  });
+  icon.addEventListener('click', function(e){
+    e.preventDefault();
+    win.hidden = false; task.hidden = false; icon.hidden = true; setActive(true);
+  });
 </script>
 </body>
 </html>
