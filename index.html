@@ -128,7 +128,7 @@
     border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
     border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
   }
-  .start-icon{width:22px;height:22px;display:block;flex:none}
+  .start-icon{font-size:20px;line-height:1;display:block;flex:none}
   @keyframes startPulse{
     0%,100%{box-shadow:inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark), 0 0 0 0 rgba(255,255,255,0)}
     50%{box-shadow:inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark), 0 0 0 4px rgba(255,255,255,0.55)}
@@ -251,13 +251,7 @@
 
 <div class="taskbar raised">
   <a class="start-button raised" href="start.html" title="Open Andrew's profile">
-    <svg class="start-icon" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M6 1C3 1 1.2 3 1.2 5.5c0 1.6.8 2.6 1.8 3.2V10.5h6V8.7c1-.6 1.8-1.6 1.8-3.2C10.8 3 9 1 6 1z" fill="#fff" stroke="#000" stroke-width=".9" stroke-linejoin="round"/>
-      <circle cx="4.2" cy="5.4" r="1.2" fill="#000"/>
-      <circle cx="7.8" cy="5.4" r="1.2" fill="#000"/>
-      <path d="M6 6.7l-.7 1.3h1.4z" fill="#000"/>
-      <path d="M4.5 9.1v1.4M6 9.1v1.4M7.5 9.1v1.4" stroke="#000" stroke-width=".6"/>
-    </svg>
+    <span class="start-icon" aria-hidden="true">👾</span>
     Andrew
   </a>
   <div class="taskbar-divider"></div>
