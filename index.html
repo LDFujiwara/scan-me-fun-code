@@ -363,7 +363,16 @@
       '</div></div><div class="win-content"><iframe title=""></iframe><div class="win-shield"></div></div>';
     el.querySelector('.title-bar span').textContent = name;
     const frame = el.querySelector('iframe');
-    frame.title = label; frame.src = url;
+    frame.title = label;
+    // local pages always load fresh so stale cached copies can't misbehave
+    frame.src = /^https?:/i.test(url) ? url : url + (url.indexOf('?') < 0 ? '?' : '&') + 'v=' + Date.now();
+    // safety net: if a window ever lands on the home page, close it instead of nesting
+    frame.addEventListener('load', function(){
+      try {
+        const path = frame.contentWindow.location.pathname;
+        if (/(^|\/)(index\.html)?$/.test(path) && frame.contentDocument.querySelector('.taskbar')) closeWin(w);
+      } catch (err) { /* cross-origin page: nothing to check */ }
+    });
     document.body.appendChild(el);
 
     const t = document.createElement('button');
