@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<style>
+  :root{
+    --grey:#c0c0c0;
+    --grey-dark:#808080;
+    --grey-darker:#404040;
+    --white:#ffffff;
+    --blue-title:#000080;
+    --blue-title2:#1084d0;
+  }
+  *{box-sizing:border-box}
+  html,body{min-height:100%}
+  body{
+    margin:0;font-family:Tahoma,Geneva,Verdana,Arial,sans-serif;
+    background:#0a0a0d;
+    color:#141414;
+    padding:24px 16px 48px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  /* ---- soft splotchy background: black, greys, very subtle dark purple ---- */
+  body::before{
+    content:"";
+    position:fixed;inset:-15%;
+    z-index:-1;
+    background:
+      radial-gradient(ellipse 45% 38% at 10% 12%, rgba(120,120,130,0.75), transparent 72%),
+      radial-gradient(ellipse 36% 44% at 88% 8%, rgba(78,78,88,0.85), transparent 72%),
+      radial-gradient(ellipse 40% 32% at 62% 30%, rgba(78,48,112,0.50), transparent 72%),
+      radial-gradient(ellipse 46% 40% at 14% 50%, rgba(64,64,72,0.90), transparent 74%),
+      radial-gradient(ellipse 34% 42% at 90% 54%, rgba(118,118,128,0.65), transparent 72%),
+      radial-gradient(ellipse 42% 34% at 44% 74%, rgba(72,44,104,0.45), transparent 72%),
+      radial-gradient(ellipse 40% 36% at 8% 90%, rgba(104,104,114,0.70), transparent 72%),
+      radial-gradient(ellipse 38% 34% at 80% 92%, rgba(70,42,100,0.42), transparent 74%),
+      radial-gradient(ellipse 30% 26% at 50% 8%, rgba(16,16,20,0.85), transparent 72%),
+      radial-gradient(ellipse 28% 24% at 36% 40%, rgba(12,12,16,0.80), transparent 72%),
+      #121216;
+    filter:blur(40px);
+  }
+
+  .raised{
+    background:var(--grey);
+    border-top:2px solid var(--white);
+    border-left:2px solid var(--white);
+    border-right:2px solid var(--grey-darker);
+    border-bottom:2px solid var(--grey-darker);
+    box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 var(--grey-dark);
+  }
+  .sunken{
+    background:var(--grey);
+    border-top:2px solid var(--grey-darker);
+    border-left:2px solid var(--grey-darker);
+    border-right:2px solid var(--white);
+    border-bottom:2px solid var(--white);
+  }
+
+  .window{width:100%;max-width:880px;margin:0 auto}
+  .title-bar{
+    background:linear-gradient(90deg,var(--blue-title),var(--blue-title2));
+    color:#fff;display:flex;align-items:center;justify-content:space-between;
+    padding:4px 4px 4px 8px;font-size:13px;font-weight:bold;letter-spacing:0.3px;
+  }
+  .title-buttons{display:flex;gap:3px}
+  .title-buttons span{
+    width:18px;height:16px;display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:bold;color:#000;line-height:0;
+  }
+  .window-body{padding:16px}
+  .intro{margin:0 0 14px;font-size:13px;line-height:1.5}
+
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:14px;
+  }
+  .tile{padding:8px}
+  .frame{
+    aspect-ratio:4/5;
+    background:#2a2a30;
+    border:1px solid #000;
+    display:flex;align-items:center;justify-content:center;
+    color:#8a8a94;font-size:12px;letter-spacing:0.4px;
+    overflow:hidden;
+  }
+  .frame img{display:block;width:100%;height:100%;object-fit:cover}
+  .tile-title{margin-top:6px;font-size:12px;text-align:center;color:#141414}
+
+  .win-button{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 16px;font-size:13px;color:#000;cursor:pointer;
+    margin-top:16px;text-decoration:none;
+  }
+  .win-button:active{
+    border-top-color:var(--grey-darker)!important;border-left-color:var(--grey-darker)!important;
+    border-right-color:var(--white)!important;border-bottom-color:var(--white)!important;
+    padding:9px 15px 7px 17px;
+  }
+</style>
+</head>
+<body>
+  <div class="window raised">
+    <div class="title-bar">
+      <span>PORTFOLIO.EXE</span>
+      <div class="title-buttons">
+        <span class="raised">_</span>
+        <span class="raised">□</span>
+        <span class="raised">×</span>
+      </div>
+    </div>
+    <div class="window-body">
+      <p class="intro">A collection of my artwork. More coming soon.</p>
+
+      <div class="gallery">
+        <div class="tile sunken"><div class="frame">Artwork 1</div><div class="tile-title">Title goes here</div></div>
+        <div class="tile sunken"><div class="frame">Artwork 2</div><div class="tile-title">Title goes here</div></div>
+        <div class="tile sunken"><div class="frame">Artwork 3</div><div class="tile-title">Title goes here</div></div>
+        <div class="tile sunken"><div class="frame">Artwork 4</div><div class="tile-title">Title goes here</div></div>
+        <div class="tile sunken"><div class="frame">Artwork 5</div><div class="tile-title">Title goes here</div></div>
+        <div class="tile sunken"><div class="frame">Artwork 6</div><div class="tile-title">Title goes here</div></div>
+      </div>
+
+      <a class="win-button raised" href="index.html">← Back home</a>
+    </div>
+  </div>
+</body>
+</html>
