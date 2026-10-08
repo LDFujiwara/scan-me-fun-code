@@ -46,7 +46,7 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
   .card{padding:10px;display:flex;flex-direction:column;gap:8px}
   .shot{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-size:44px;overflow:hidden}
-  .shot img{width:100%;height:100%;object-fit:contain;display:block}
+  .shot img{width:100%;height:100%;object-fit:contain;display:block;background:#fff}
   .tag{font-size:11px;color:var(--grey-darker);text-transform:uppercase;letter-spacing:0.6px}
   .name{font-size:15px;font-weight:bold;color:var(--blue);line-height:1.25}
   .why{font-size:12.5px;line-height:1.5;flex:1}
@@ -91,33 +91,33 @@
   const TAB_ORDER = ["Music","Kitchen","Clothing","Motorsport","Tactical","Athletics","Tech"];
 
   const GEAR = [
-    {"tabs": ["Music"], "name": "Evans RealFeel Practice Pad", "why": "", "emoji": "🥁", "image": "", "link": "https://daddario.com/products/percussion/percussion-accessories/drum-pads-stands/realfeel-practice-pad-6-inch"},
+    {"tabs": ["Music"], "name": "Evans RealFeel Practice Pad", "why": "", "emoji": "🥁", "image": "https://www.daddario.com/cdn/shop/files/ev_RF6GM_main_transparent.png?v=1773014499", "link": "https://daddario.com/products/percussion/percussion-accessories/drum-pads-stands/realfeel-practice-pad-6-inch"},
     {"tabs": ["Music", "Tech"], "name": "Beats Solo Buds", "why": "", "emoji": "🎧", "image": "", "link": "https://www.beatsbydre.com/earbuds/solo-buds"},
-    {"tabs": ["Kitchen"], "name": "Korin Hammered Damascus Wa-Gyuto with Saya, 8.2", "why": "", "emoji": "🔪", "image": "", "link": "https://www.korin.com/HKR-HDWGY-210"},
-    {"tabs": ["Kitchen"], "name": "Ganji Kankiri Can Opener", "why": "", "emoji": "🥫", "image": "", "link": "https://www.korin.com/Japanese-Can-Opener-Ganji-Kankiri-4-5-L-3-W"},
+    {"tabs": ["Kitchen"], "name": "Korin Hammered Damascus Wa-Gyuto with Saya, 8.2", "why": "", "emoji": "🔪", "image": "https://www.korin.com/ItemImages/HKR-HDWGY-210.01.jpg?resizeid=3&resizeh=600&resizew=600", "link": "https://www.korin.com/HKR-HDWGY-210"},
+    {"tabs": ["Kitchen"], "name": "Ganji Kankiri Can Opener", "why": "", "emoji": "🥫", "image": "https://www.korin.com/ItemImages/TK-701.01.jpg?resizeid=3&resizeh=600&resizew=600", "link": "https://www.korin.com/Japanese-Can-Opener-Ganji-Kankiri-4-5-L-3-W"},
     {"tabs": ["Clothing", "Kitchen"], "name": "Dr. Martens 1460 Slip Resistant Leather Lace Up Boots", "why": "", "emoji": "🥾", "image": "", "link": "https://www.drmartens.com/us/en/1460-slip-resistant-leather-lace-up-boots-black/p/24382001"},
-    {"tabs": ["Clothing", "Motorsport"], "name": "Onitsuka Tiger Serrano", "why": "", "emoji": "👟", "image": "", "link": "https://www.onitsukatiger.com/be/en-be/shoes/view-all-shoes/serrano/"},
-    {"tabs": ["Clothing", "Tactical"], "name": "Danner Tachyon Boots", "why": "", "emoji": "🥾", "image": "", "links": [{"label": "Waterproof →", "url": "https://www.danner.com/tachyon-8-black-gtx.html"}, {"label": "Non-waterproof →", "url": "https://global.danner.com/tachyon-8-black.html"}]},
-    {"tabs": ["Clothing"], "name": "Muji Denim Easy Pants", "why": "", "emoji": "👖", "image": "", "link": "https://www.muji.us/products/recycled-cotton-denim-easy-pants-ae12n26a"},
-    {"tabs": ["Clothing"], "name": "Uniqlo AIRism Cotton Long Sleeve", "why": "", "emoji": "👕", "image": "", "link": "https://www.uniqlo.com/us/en/products/E465193-000/00"},
-    {"tabs": ["Clothing"], "name": "Orvis PRO LT Softshell Vest", "why": "", "emoji": "🦺", "image": "", "link": "https://www.orvis.com/product/mens-pro-lt-softshell-vest/3NC2.html"},
-    {"tabs": ["Clothing"], "name": "ODGG Supply USMC FROG Waffle Top", "why": "", "emoji": "🧥", "image": "", "link": "https://odggsupply.com/products/usmc-frog-waffle-tops-tottoms"},
-    {"tabs": ["Athletics", "Clothing"], "name": "ASICS Gel-Venture 11", "why": "", "emoji": "👟", "image": "", "link": "https://www.asics.com/us/en-us/gel-venture%C2%A011/p/ANA_1011C160-001.html"},
-    {"tabs": ["Motorsport"], "name": "Sparco Arrow+ Gloves", "why": "", "emoji": "🧤", "image": "", "link": "https://www.sparcousa.com/arrow-2"},
-    {"tabs": ["Motorsport"], "name": "Sparco RW9 Hood", "why": "", "emoji": "🏁", "image": "", "link": "https://www.sparcousa.com/product/hood-shield-rw-9-3"},
-    {"tabs": ["Tactical"], "name": "Magpul CTR Carbine Stock, Mil-Spec", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/ctr-carbine-stock-mil-spec.html"},
-    {"tabs": ["Tactical"], "name": "Magpul Barricade Stop, M-LOK", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/magpul-barricade-stop-m-lok.html"},
-    {"tabs": ["Tactical"], "name": "Magpul WCK Wire Control Kit, M-LOK", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/wck-wire-control-kit-m-lok.html"},
-    {"tabs": ["Tactical"], "name": "Magpul M-LOK Rail Covers, Type 2", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/m-lok-rail-covers-type2.html"},
-    {"tabs": ["Tactical"], "name": "Magpul MBUS Sights", "why": "", "emoji": "🎯", "image": "", "links": [{"label": "Front sight →", "url": "https://magpul.com/mbus-sight-front.html"}, {"label": "Rear sight →", "url": "https://magpul.com/mbus-sight-rear.html"}]},
-    {"tabs": ["Tactical", "Athletics"], "name": "5.11 RUSH LBD XRAY Duffel Bag 106L", "why": "", "emoji": "🎒", "image": "", "link": "https://www.evike.com/products/100872/5.11-Tactical-Rush-LBD-XRAY-106L-Duffel-Bag/"},
-    {"tabs": ["Tactical", "Tech"], "name": "Nocs Provisions Zoom Tube 8x32 Monocular", "why": "", "emoji": "🔭", "image": "", "link": "https://www.nocsprovisions.com/products/zoom-tube-8x32-monocular-telescope"},
+    {"tabs": ["Clothing", "Motorsport"], "name": "Onitsuka Tiger Serrano", "why": "", "emoji": "👟", "image": "https://images.asics.com/is/image/asics/1183B400_001_SR_RT_GLB-3?wid=600&hei=600&bgc=255,255,255&resMode=bisharp", "link": "https://www.onitsukatiger.com/be/en-be/shoes/view-all-shoes/serrano/"},
+    {"tabs": ["Clothing", "Tactical"], "name": "Danner Tachyon Boots", "why": "", "emoji": "🥾", "image": "https://i.lfi.media/is/image/LaCrosse/danner_22_pdp/50122?wid=800&hei=800", "links": [{"label": "Waterproof →", "url": "https://www.danner.com/tachyon-8-black-gtx.html"}, {"label": "Non-waterproof →", "url": "https://global.danner.com/tachyon-8-black.html"}]},
+    {"tabs": ["Clothing"], "name": "Muji Denim Easy Pants", "why": "", "emoji": "👖", "image": "https://www.muji.us/cdn/shop/files/4550723460378_01_org_24cf7cde-28d9-420f-b9aa-a1189c3f7043_1200x1200.jpg?v=1786488118", "link": "https://www.muji.us/products/recycled-cotton-denim-easy-pants-ae12n26a"},
+    {"tabs": ["Clothing"], "name": "Uniqlo AIRism Cotton Long Sleeve", "why": "", "emoji": "👕", "image": "https://image.uniqlo.com/UQ/ST3/us/imagesgoods/465193/item/usgoods_09_465193_3x4.jpg", "link": "https://www.uniqlo.com/us/en/products/E465193-000/00"},
+    {"tabs": ["Clothing"], "name": "Orvis PRO LT Softshell Vest", "why": "", "emoji": "🦺", "image": "https://assets.orvis.com/is/image/orvisprd/3NC210HF26_W?wid=1024&src=is($object$:1-1)&qlt=85&resMode=sharp2&op_usm=1.75,0.3,2,0", "link": "https://www.orvis.com/product/mens-pro-lt-softshell-vest/3NC2.html"},
+    {"tabs": ["Clothing"], "name": "ODGG Supply USMC FROG Waffle Top", "why": "", "emoji": "🧥", "image": "https://odggsupply.com/cdn/shop/files/IMG-6168.jpg?v=1762198798", "link": "https://odggsupply.com/products/usmc-frog-waffle-tops-tottoms"},
+    {"tabs": ["Athletics", "Clothing"], "name": "ASICS Gel-Venture 11", "why": "", "emoji": "👟", "image": "https://images.asics.com/is/image/asics/1011C160_400_SL_LT_GLB?fmt=png-alpha", "link": "https://www.asics.com/us/en-us/gel-venture%C2%A011/p/ANA_1011C160-001.html"},
+    {"tabs": ["Motorsport"], "name": "Sparco Arrow+ Gloves", "why": "", "emoji": "🧤", "image": "https://www.sparcousa.com/content/images/thumbs/0004669_arrow-_550.jpeg", "link": "https://www.sparcousa.com/arrow-2"},
+    {"tabs": ["Motorsport"], "name": "Sparco RW9 Hood", "why": "", "emoji": "🏁", "image": "https://www.sparcousa.com/content/images/thumbs/0002698_racing-underwear-hood-shield-rw-9_550.jpeg", "link": "https://www.sparcousa.com/product/hood-shield-rw-9-3"},
+    {"tabs": ["Tactical"], "name": "Magpul CTR Carbine Stock, Mil-Spec", "why": "", "emoji": "🔩", "image": "https://magpul.com/media/catalog/product/cache/97e976a4ea08fd1851f640d1ab164adf/m/a/mag310-mcb_magpul_ctr_carbine_stock-mil-spec_01.1_1.jpg", "link": "https://magpul.com/ctr-carbine-stock-mil-spec.html"},
+    {"tabs": ["Tactical"], "name": "Magpul Barricade Stop, M-LOK", "why": "", "emoji": "🔩", "image": "https://magpul.com/media/catalog/product/cache/97e976a4ea08fd1851f640d1ab164adf/m/a/mag1295-blk_magpul_barricade_stop_m-lok_01.1.jpg", "link": "https://magpul.com/magpul-barricade-stop-m-lok.html"},
+    {"tabs": ["Tactical"], "name": "Magpul WCK Wire Control Kit, M-LOK", "why": "", "emoji": "🔩", "image": "https://magpul.com/media/catalog/product/cache/97e976a4ea08fd1851f640d1ab164adf/m/a/mag1296-blk_magpul_wck_wire_control_kit_m-lok_01.2_1.jpg", "link": "https://magpul.com/wck-wire-control-kit-m-lok.html"},
+    {"tabs": ["Tactical"], "name": "Magpul M-LOK Rail Covers, Type 2", "why": "", "emoji": "🔩", "image": "https://magpul.com/media/catalog/product/cache/97e976a4ea08fd1851f640d1ab164adf/m/a/mag603-mcb_m-lok_rail_covers_type_2_01.1_1.jpg", "link": "https://magpul.com/m-lok-rail-covers-type2.html"},
+    {"tabs": ["Tactical"], "name": "Magpul MBUS Sights", "why": "", "emoji": "🎯", "image": "https://magpul.com/media/catalog/product/cache/97e976a4ea08fd1851f640d1ab164adf/m/a/mag247-blk_magpul_mbus_sight_front_01.jpg", "links": [{"label": "Front sight →", "url": "https://magpul.com/mbus-sight-front.html"}, {"label": "Rear sight →", "url": "https://magpul.com/mbus-sight-rear.html"}]},
+    {"tabs": ["Tactical", "Athletics"], "name": "5.11 RUSH LBD XRAY Duffel Bag 106L", "why": "", "emoji": "🎒", "image": "https://www.evike.com/images/511-100872-sm.jpg", "link": "https://www.evike.com/products/100872/5.11-Tactical-Rush-LBD-XRAY-106L-Duffel-Bag/"},
+    {"tabs": ["Tactical", "Tech"], "name": "Nocs Provisions Zoom Tube 8x32 Monocular", "why": "", "emoji": "🔭", "image": "https://www.nocsprovisions.com/cdn/shop/files/NOC-ZTU-GN2-profile_main.jpg?v=1764727839&width=1000", "link": "https://www.nocsprovisions.com/products/zoom-tube-8x32-monocular-telescope"},
     {"tabs": ["Athletics"], "name": "TaylorMade BRNR Mini Driver", "why": "", "emoji": "⛳", "image": "", "link": "https://www.taylormadegolf.com/BRNR-Mini-Driver/DW-TA111.html"},
-    {"tabs": ["Athletics"], "name": "TaylorMade Stealth Fairway Wood", "why": "", "emoji": "⛳", "image": "", "link": "https://www.taylormadegolf.com/Stealth-Fairway/DW-TA031.html"},
-    {"tabs": ["Athletics"], "name": "Lucky Golf Gold Putter", "why": "", "emoji": "⛳", "image": "", "link": "https://www.luckygolf.com/products/limited-edition-mallet-putter"},
-    {"tabs": ["Athletics"], "name": "Golf Pride Grips", "why": "", "emoji": "⛳", "image": "", "link": "https://www.golfpride.com/us/en-us/swing-grips.html"},
+    {"tabs": ["Athletics"], "name": "TaylorMade Stealth Fairway Wood", "why": "", "emoji": "⛳", "image": "https://www.taylormadegolf.com/dw/image/v2/AAIS_PRD/on/demandware.static/-/Sites-tmag-master-catalog/en_US/v1791392777445/zoom/TA031_zoom_D.jpg?sw=900&sh=900&sm=fit", "link": "https://www.taylormadegolf.com/Stealth-Fairway/DW-TA031.html"},
+    {"tabs": ["Athletics"], "name": "Lucky Golf Gold Putter", "why": "", "emoji": "⛳", "image": "https://www.luckygolf.com/cdn/shop/files/lg-card-mallet.webp?v=1790522351&width=1200", "link": "https://www.luckygolf.com/products/limited-edition-mallet-putter"},
+    {"tabs": ["Athletics"], "name": "Golf Pride Grips", "why": "", "emoji": "⛳", "image": "https://www.golfpride.com/content/dam/golfpride/navigation/grip-hover-images/mcc-hovere-image.png", "link": "https://www.golfpride.com/us/en-us/swing-grips.html"},
     {"tabs": ["Tech"], "name": "Pentax ME", "why": "", "emoji": "📷", "image": "", "link": "https://kenrockwell.com/pentax/35mm/cameras/me.htm"},
-    {"tabs": ["Tech"], "name": "Goal Zero Venture 35 Power Bank", "why": "", "emoji": "🔋", "image": "", "link": "https://goalzero.com/products/venture-35-power-bank"}
+    {"tabs": ["Tech"], "name": "Goal Zero Venture 35 Power Bank", "why": "", "emoji": "🔋", "image": "https://goalzero.com/cdn/shop/products/b19b47c7761ca359a415271d9107c057_1_1024x1024.jpg?v=1621591406", "link": "https://goalzero.com/products/venture-35-power-bank"}
   ];
 
   const used = new Set(); GEAR.forEach(g => g.tabs.forEach(t => used.add(t)));
@@ -142,8 +142,13 @@
     items.forEach(g => {
       const card = el('div','card raised');
       const shot = el('div','shot sunken');
-      if (g.image) { const im = new Image(); im.src = g.image; im.alt = g.name; shot.appendChild(im); }
-      else shot.textContent = g.emoji || "📦";
+      const fallback = () => { shot.textContent = g.emoji || "📦"; };
+      if (g.image) {
+        const im = new Image();
+        im.referrerPolicy = "no-referrer"; im.loading = "lazy"; im.alt = g.name;
+        im.onerror = fallback;
+        im.src = g.image; shot.appendChild(im);
+      } else fallback();
       card.appendChild(shot);
       card.appendChild(el('div','tag', g.tabs.join(" \u00b7 ")));
       card.appendChild(el('div','name', g.name));
