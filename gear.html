@@ -57,6 +57,8 @@
     border-top-color:var(--grey-darker);border-left-color:var(--grey-darker);
     border-right-color:var(--white);border-bottom-color:var(--white);
   }
+  .links{display:flex;flex-direction:column;gap:6px}
+  .go{flex:1}
   .empty{padding:24px;text-align:center;font-size:13px}
 </style>
 </head>
@@ -77,25 +79,49 @@
 <script>
   /* ------------------------------------------------------------------
      EDIT THIS LIST. One entry per product.
-       category : groups items into tabs
-       name     : product name
-       why      : one or two lines on why you stand by it
-       link     : where "Check it out" goes (affiliate link if you use one)
-       image    : optional, e.g. "assets/gear/knife.jpg" (emoji shows if blank)
-       emoji    : shown when there's no image
+       tabs   : which tabs it shows under (one or more); every item also shows on "All"
+       name   : product name
+       why    : one or two lines on why you stand by it (optional)
+       link   : one link, shown as a "Check it out" button
+       links  : OR several links: [{label:"Waterproof →", url:"..."}, ...]
+       image  : optional, e.g. "assets/gear/knife.jpg" (emoji shows if blank)
+       emoji  : shown when there's no image
      ------------------------------------------------------------------ */
   const AFFILIATE_NOTE = "";  // e.g. "Some links are affiliate links. I may earn a small commission at no cost to you."
+  const TAB_ORDER = ["Music","Kitchen","Clothing","Motorsport","Tactical","Athletics","Tech"];
 
   const GEAR = [
-    { category:"Kitchen", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🔪" },
-    { category:"Kitchen", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🍳" },
-    { category:"Tech",    name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"⌨️" },
-    { category:"Tech",    name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🎧" },
-    { category:"Fitness", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"🏋️" },
-    { category:"Fitness", name:"Product name goes here", why:"Why you stand by it goes here. Keep it short and honest.", link:"#", image:"", emoji:"👟" }
+    {"tabs": ["Music"], "name": "Evans RealFeel Practice Pad", "why": "", "emoji": "🥁", "image": "", "link": "https://daddario.com/products/percussion/percussion-accessories/drum-pads-stands/realfeel-practice-pad-6-inch"},
+    {"tabs": ["Music", "Tech"], "name": "Beats Solo Buds", "why": "", "emoji": "🎧", "image": "", "link": "https://www.beatsbydre.com/earbuds/solo-buds"},
+    {"tabs": ["Kitchen"], "name": "Korin Hammered Damascus Wa-Gyuto with Saya, 8.2", "why": "", "emoji": "🔪", "image": "", "link": "https://www.korin.com/HKR-HDWGY-210"},
+    {"tabs": ["Kitchen"], "name": "Ganji Kankiri Can Opener", "why": "", "emoji": "🥫", "image": "", "link": "https://www.korin.com/Japanese-Can-Opener-Ganji-Kankiri-4-5-L-3-W"},
+    {"tabs": ["Clothing", "Kitchen"], "name": "Dr. Martens 1460 Slip Resistant Leather Lace Up Boots", "why": "", "emoji": "🥾", "image": "", "link": "https://www.drmartens.com/us/en/1460-slip-resistant-leather-lace-up-boots-black/p/24382001"},
+    {"tabs": ["Clothing", "Motorsport"], "name": "Onitsuka Tiger Serrano", "why": "", "emoji": "👟", "image": "", "link": "https://www.onitsukatiger.com/be/en-be/shoes/view-all-shoes/serrano/"},
+    {"tabs": ["Clothing", "Tactical"], "name": "Danner Tachyon Boots", "why": "", "emoji": "🥾", "image": "", "links": [{"label": "Waterproof →", "url": "https://www.danner.com/tachyon-8-black-gtx.html"}, {"label": "Non-waterproof →", "url": "https://global.danner.com/tachyon-8-black.html"}]},
+    {"tabs": ["Clothing"], "name": "Muji Denim Easy Pants", "why": "", "emoji": "👖", "image": "", "link": "https://www.muji.us/products/recycled-cotton-denim-easy-pants-ae12n26a"},
+    {"tabs": ["Clothing"], "name": "Uniqlo AIRism Cotton Long Sleeve", "why": "", "emoji": "👕", "image": "", "link": "https://www.uniqlo.com/us/en/products/E465193-000/00"},
+    {"tabs": ["Clothing"], "name": "Orvis PRO LT Softshell Vest", "why": "", "emoji": "🦺", "image": "", "link": "https://www.orvis.com/product/mens-pro-lt-softshell-vest/3NC2.html"},
+    {"tabs": ["Clothing"], "name": "ODGG Supply USMC FROG Waffle Top", "why": "", "emoji": "🧥", "image": "", "link": "https://odggsupply.com/products/usmc-frog-waffle-tops-tottoms"},
+    {"tabs": ["Athletics", "Clothing"], "name": "ASICS Gel-Venture 11", "why": "", "emoji": "👟", "image": "", "link": "https://www.asics.com/us/en-us/gel-venture%C2%A011/p/ANA_1011C160-001.html"},
+    {"tabs": ["Motorsport"], "name": "Sparco Arrow+ Gloves", "why": "", "emoji": "🧤", "image": "", "link": "https://www.sparcousa.com/arrow-2"},
+    {"tabs": ["Motorsport"], "name": "Sparco RW9 Hood", "why": "", "emoji": "🏁", "image": "", "link": "https://www.sparcousa.com/product/hood-shield-rw-9-3"},
+    {"tabs": ["Tactical"], "name": "Magpul CTR Carbine Stock, Mil-Spec", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/ctr-carbine-stock-mil-spec.html"},
+    {"tabs": ["Tactical"], "name": "Magpul Barricade Stop, M-LOK", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/magpul-barricade-stop-m-lok.html"},
+    {"tabs": ["Tactical"], "name": "Magpul WCK Wire Control Kit, M-LOK", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/wck-wire-control-kit-m-lok.html"},
+    {"tabs": ["Tactical"], "name": "Magpul M-LOK Rail Covers, Type 2", "why": "", "emoji": "🔩", "image": "", "link": "https://magpul.com/m-lok-rail-covers-type2.html"},
+    {"tabs": ["Tactical"], "name": "Magpul MBUS Sights", "why": "", "emoji": "🎯", "image": "", "links": [{"label": "Front sight →", "url": "https://magpul.com/mbus-sight-front.html"}, {"label": "Rear sight →", "url": "https://magpul.com/mbus-sight-rear.html"}]},
+    {"tabs": ["Tactical", "Athletics"], "name": "5.11 RUSH LBD XRAY Duffel Bag 106L", "why": "", "emoji": "🎒", "image": "", "link": "https://www.evike.com/products/100872/5.11-Tactical-Rush-LBD-XRAY-106L-Duffel-Bag/"},
+    {"tabs": ["Tactical", "Tech"], "name": "Nocs Provisions Zoom Tube 8x32 Monocular", "why": "", "emoji": "🔭", "image": "", "link": "https://www.nocsprovisions.com/products/zoom-tube-8x32-monocular-telescope"},
+    {"tabs": ["Athletics"], "name": "TaylorMade BRNR Mini Driver", "why": "", "emoji": "⛳", "image": "", "link": "https://www.taylormadegolf.com/BRNR-Mini-Driver/DW-TA111.html"},
+    {"tabs": ["Athletics"], "name": "TaylorMade Stealth Fairway Wood", "why": "", "emoji": "⛳", "image": "", "link": "https://www.taylormadegolf.com/Stealth-Fairway/DW-TA031.html"},
+    {"tabs": ["Athletics"], "name": "Lucky Golf Gold Putter", "why": "", "emoji": "⛳", "image": "", "link": "https://www.luckygolf.com/products/limited-edition-mallet-putter"},
+    {"tabs": ["Athletics"], "name": "Golf Pride Grips", "why": "", "emoji": "⛳", "image": "", "link": "https://www.golfpride.com/us/en-us/swing-grips.html"},
+    {"tabs": ["Tech"], "name": "Pentax ME", "why": "", "emoji": "📷", "image": "", "link": "https://kenrockwell.com/pentax/35mm/cameras/me.htm"},
+    {"tabs": ["Tech"], "name": "Goal Zero Venture 35 Power Bank", "why": "", "emoji": "🔋", "image": "", "link": "https://goalzero.com/products/venture-35-power-bank"}
   ];
 
-  const cats = ["All"].concat([...new Set(GEAR.map(g => g.category))]);
+  const used = new Set(); GEAR.forEach(g => g.tabs.forEach(t => used.add(t)));
+  const cats = ["All"].concat(TAB_ORDER.filter(t => used.has(t)), [...used].filter(t => !TAB_ORDER.includes(t)));
   const tabsEl = document.getElementById('tabs');
   const grid = document.getElementById('grid');
   let current = "All";
@@ -111,7 +137,7 @@
       tabsEl.appendChild(b);
     });
     grid.innerHTML = "";
-    const items = GEAR.filter(g => current === "All" || g.category === current);
+    const items = GEAR.filter(g => current === "All" || g.tabs.includes(current));
     if (!items.length) { grid.appendChild(el('div','empty','Nothing here yet.')); return; }
     items.forEach(g => {
       const card = el('div','card raised');
@@ -119,14 +145,19 @@
       if (g.image) { const im = new Image(); im.src = g.image; im.alt = g.name; shot.appendChild(im); }
       else shot.textContent = g.emoji || "📦";
       card.appendChild(shot);
-      card.appendChild(el('div','tag', g.category));
+      card.appendChild(el('div','tag', g.tabs.join(" \u00b7 ")));
       card.appendChild(el('div','name', g.name));
-      card.appendChild(el('div','why', g.why));
-      const a = el('a','go raised','Check it out →');
-      a.href = g.link || "#";
-      if (g.link && g.link !== "#") { a.target = "_blank"; a.rel = "noopener sponsored"; }
-      else a.addEventListener('click', e => e.preventDefault());
-      card.appendChild(a);
+      card.appendChild(el('div','why', g.why || ""));
+      const links = g.links || (g.link ? [{label:"Check it out \u2192", url:g.link}] : []);
+      if (links.length) {
+        const row = el('div','links');
+        links.forEach(l => {
+          const a = el('a','go raised', l.label);
+          a.href = l.url; a.target = "_blank"; a.rel = "noopener sponsored";
+          row.appendChild(a);
+        });
+        card.appendChild(row);
+      }
       grid.appendChild(card);
     });
   }
